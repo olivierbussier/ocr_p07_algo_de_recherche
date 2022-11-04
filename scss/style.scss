@@ -1,0 +1,107 @@
+// Import all of Bootstrap's CSS
+@import "~bootstrap/scss/bootstrap";
+
+// Custom styles
+
+$primary-color: #D04F4F;
+
+.container {
+    background-color: rgb(244, 244, 244)
+}
+
+h1 {
+    font-size: 36px;
+    color: $primary-color;
+}
+
+.custom-input {
+    position: relative;
+    input {
+        width: 100%;
+        height: 63px;
+        font-size: 30px;
+        border: 1px solid lightgray;
+        &:active + button {
+            display: none;
+        }
+    }
+    button {
+        border: none;
+        position: absolute;
+        right: 30px;
+        top: calc(50% - 20px);
+        width: 20px;
+        height: 20px;
+        border: none;
+        background-color: white;
+    }
+}
+
+.col-sm.hide-card {
+    display: none;
+}
+
+.card {
+    width: 380px;
+    img.img-card-head {
+        height: 260px;
+        object-fit: cover;
+    }
+    .multiline-ellipsis {
+        display: block;
+        display: -webkit-box;
+        max-width: 400px;
+        height: 109.2px;
+        margin: 0 auto;
+        font-size: 26px;
+        line-height: 1;
+        -webkit-line-clamp: 11;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .card-body {
+        padding-top: 0;
+        padding-bottom: 0;
+        h5 {
+            font-weight: 400;
+            font-size: 18px;
+            margin-bottom: 18px;
+        }
+        .float-right {
+            float: right;
+        }
+    }
+    .ingredients {
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+    }
+    ul {
+        padding-left: 1rem;
+    }
+    li {
+        list-style-type: none;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14.4px;
+        .strong {
+            font-weight: 700;
+        }
+    }
+    .card-text {
+        height: 130px;
+        overflow: hidden;
+        white-space: normal;
+        text-overflow: fade;
+    }
+    .model-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .p12px {
+        font-size: 12px;
+        font-weight: 400;
+
+    }
+}
