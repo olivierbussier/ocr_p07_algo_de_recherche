@@ -1,0 +1,78 @@
+$bg-combo-default: black;
+$fg-combo-default: white;
+
+$height-combo: 60px;
+
+.combo-container {
+    // position: relative;
+    // width: 250px;
+    .combo-box {
+        display: flex;
+        flex-direction: column;
+        // position: absolute;
+        background-color: $bg-combo-default;
+        color:$fg-combo-default;
+        border-radius: 5px;
+        input {
+            background-color: inherit;
+            background-image: url(/assets/icones/caret-down.svg);
+            background-repeat: no-repeat;
+            background-position: top calc(($height-combo - 16px) / 2 + 4px) right 10px;
+            &:focus-within {
+                background-image: url(/assets/icones/caret-up.svg);
+            }
+            color: inherit;
+            border-style: hidden;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 21.6px;
+            padding: 10px 40px 10px 10px;
+            height: $height-combo;
+            z-index: 3;
+            &:focus {
+                outline: none;
+            }
+        }
+        datalist {
+            background-color: inherit;
+            z-index: 2;
+            display: none;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-radius: 5px;
+            border-top: none;
+            &.active {
+                display: grid;
+            }
+        }
+        option {
+            display: none;
+            padding: 0 5px;
+            margin: 0;
+            color: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            &:hover {
+                filter: opacity(15%)
+            }
+            &.active{
+                display: block;
+            }
+        }
+    }
+}
+
+.color-combo-ingredients {
+    background-color: $bg-combo-ingredients!important;
+    color: $fg-combo-ingredients!important;
+}
+
+.color-combo-ustensiles {
+    background-color: $bg-combo-ustensiles!important;
+    color: $fg-combo-ustensiles!important;
+}
+
+.color-combo-appareils {
+    background-color: $bg-combo-appareils!important;
+    color: $fg-combo-appareils!important;
+}

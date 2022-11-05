@@ -11,11 +11,12 @@ class DisplayRecette {
             li.innerHTML = '<span class="strong">' + ingredient.ingredient + ': ' + '</span>' + textQuantity + textUnit
             ul.appendChild(li)
         })
-        const img = String.fromCharCode('abcdefghijk'.charCodeAt(Math.floor(Math.random()*11))) + ".jpg"
+        // const img = "assets/images/new/" + String.fromCharCode('abcdefghijklmnopqrs'.charCodeAt(Math.floor(Math.random()*19))) + ".jpg"
+        const img = "https://picsum.photos/380/178?a=" + Math.random(100000)
 
         section.innerHTML =
            `<article class="card">
-                <img class="img-card-head card-img-top" src="assets/images/new/${img}" alt="Recette">
+                <img class="img-card-head card-img-top" src="${img}" alt="Recette">
                 <div class="card-body">
                     <h5 class="card-title">${recette.name}
                         <span class="float-right">
@@ -87,6 +88,5 @@ export class CardsRecettes {
     }
 
     display(recettesArray) {
-
     }
 }

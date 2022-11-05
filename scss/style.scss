@@ -1,6 +1,9 @@
 // Import all of Bootstrap's CSS
 @import "~bootstrap/scss/bootstrap";
 
+@import "./utils/variables";
+@import "./components/ComboBox";
+
 // Custom styles
 
 $primary-color: #D04F4F;
@@ -104,4 +107,18 @@ h1 {
         font-weight: 400;
 
     }
+}
+
+.filter-select {
+    display: flex;
+    // align-items: flex-start;
+    gap: 20px;
+    margin-top: 20px;
+    // margin-bottom: 20px;
+    position: absolute;
+    // padding-bottom: 28px;
+}
+
+.recettes {
+    margin-top: 90px;
 }

@@ -10824,6 +10824,75 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.combo-container .combo-box {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+}
+.combo-container .combo-box input {
+  background-color: inherit;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0xNC4xMiAwLjQ1MzM2OUw4IDYuNTYwMDRMMS44OCAwLjQ1MzM2OUwwIDIuMzMzMzdMOCAxMC4zMzM0TDE2IDIuMzMzMzdMMTQuMTIgMC40NTMzNjlaIiBmaWxsPSJ3aGl0ZSIgLz4KPC9zdmc+);
+  background-repeat: no-repeat;
+  background-position: top 26px right 10px;
+  color: inherit;
+  border-style: hidden;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21.6px;
+  padding: 10px 40px 10px 10px;
+  height: 60px;
+  z-index: 3;
+}
+.combo-container .combo-box input:focus-within {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0xLjg4IDEwLjU0NjZMOCA0LjQzOTk2TDE0LjEyIDEwLjU0NjZMMTYgOC42NjY2M0w4IDAuNjY2NjNMMS42NDM1NWUtMDcgOC42NjY2M0wxLjg4IDEwLjU0NjZaIgogICAgICAgIGZpbGw9IndoaXRlIiAvPgo8L3N2Zz4=);
+}
+.combo-container .combo-box input:focus {
+  outline: none;
+}
+.combo-container .combo-box datalist {
+  background-color: inherit;
+  z-index: 2;
+  display: none;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-radius: 5px;
+  border-top: none;
+}
+.combo-container .combo-box datalist.active {
+  display: grid;
+}
+.combo-container .combo-box option {
+  display: none;
+  padding: 0 5px;
+  margin: 0;
+  color: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.combo-container .combo-box option:hover {
+  filter: opacity(15%);
+}
+.combo-container .combo-box option.active {
+  display: block;
+}
+
+.color-combo-ingredients {
+  background-color: #3282F7 !important;
+  color: white !important;
+}
+
+.color-combo-ustensiles {
+  background-color: #ED6454 !important;
+  color: white !important;
+}
+
+.color-combo-appareils {
+  background-color: #68D9A4 !important;
+  color: white !important;
+}
+
 .container {
   background-color: rgb(244, 244, 244);
 }
@@ -10923,4 +10992,15 @@ h1, .h1 {
 .card .p12px {
   font-size: 12px;
   font-weight: 400;
+}
+
+.filter-select {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  position: absolute;
+}
+
+.recettes {
+  margin-top: 90px;
 }

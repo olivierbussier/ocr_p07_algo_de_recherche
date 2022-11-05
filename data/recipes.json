@@ -470,7 +470,7 @@
         "servings": 2,
         "ingredients": [
             {
-                "ingredient": "Saucisse bretonne ou de Toulouse",
+                "ingredient": "Saucisse bretonne/Toulouse",
                 "quantity": 2
             },
             {
@@ -725,7 +725,7 @@
                 "unit":"grammes"
             },
             {
-                "ingredient": "Viande hachée 1% de matière grasse",
+                "ingredient": "Viande hachée 1% mg",
                 "quantity": 400,
                 "unit":"grammes"
             },
