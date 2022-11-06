@@ -83,11 +83,18 @@ export class CardsRecettes {
         const section = document.getElementById("recettes")
         recettes.forEach(recette => {
             const elem = new DisplayRecette(recette).getDOM()
-            this._recettes.push(elem)
+            this._recettes[recette.id] = elem
             section.appendChild(elem)
-        });
+        })
     }
 
     display(recettesArray) {
+        recettesArray.forEach(recette => {
+            if (recette.toBeDisplayed) {
+                this._recettes[recette.id].classList.remove('hide-recette')
+            } else {
+                this._recettes[recette.id].classList.add('hide-recette')
+            }
+        })
     }
 }

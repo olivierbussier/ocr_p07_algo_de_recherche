@@ -10949,6 +10949,10 @@ h1, .h1 {
   display: none;
 }
 
+.hide-recette {
+  display: none;
+}
+
 .card {
   width: 380px;
 }

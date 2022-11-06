@@ -4,113 +4,124 @@ export class Search {
     }
 
     match(recette, str, ingredients, appareils, ustensiles) {
-
-        // var result = []
-        // // Recherche des ingrédients dans la recette
-        // // Boucle sur les ingrédients a chercher
-        // ingredients.forEach(filterIngredient => {
-        //     if (recette.ingredients.indexOf(filterIngredient)) {
-        //         if (filterIngredient.name === recetteIngredient.ingredient) {
-        //             // Cette recette matche un ingrédient, maintenant
-        //             // boucle sur les appareils
-        //             appareils.forEach(filterAppareil => {
-        //                 recette.appliance.forEach(recetteAppareil => {
-        //                     if (filterAppareil.name === recetteAppareil.appliance) {
-        //                         // Cette recette matche un appareil, maintenant
-        //                         // Boucle sur les ustensiles
-        //                         ustensiles.forEach(filterUstensil => {
-        //                             recette.ustensils.forEach(recetteUstensil => {
-        //                                 if (filterUstensil.name === recetteUstensil) {
-        //                                     // Cette recette matche un ustensile, maintenant
-        //                                     // On cherche une chaine dans le titre, la description
-        //                                     // et la liste des ingrédients
-        //                                     if (str.length >= 3) {
-        //                                         // recherche dans le titre et la description
-        //                                         if (recette.description.includes(str) || recette.name.includes(str)) {
-        //                                             result.push({id:recette.id, status: true})
-        //                                         } else if (recette.ingredients.indexOf()  ) {
-
-        //                                         } else {
-        //                                             result.push({id:recette.id, status: false})
-        //                                         }
-        //                                     } else {
-        //                                         result.push({id:recette.id, status: false})
-        //                                     }
-        //                                 } else {
-        //                                     result.push({id:recette.id, status: false})
-        //                                 }
-        //                             })
-        //                         })
-        //                     } else {
-        //                         result.push({id:recette.id, status: false})
-        //                     }
-        //                 })
-        //             })
-        //         } else {
-        //             result.push({id:recette.id, status: false})
-        //         }
-        //     })
-        // })
-
         // Recherche de la chaine de caractères si longueur > 3
         // Sinon, recherche sur toutes les recettes
-
-
     }
-
     /**
-     * Cette fonction permet de récuperer un tableau de status d'affichage
-     * de l'ensemble des recettes.
-     * La valeur de retour est sous la forme d'un tableau d'object avec deux clés:
-     * - numéro de recette
-     * - flag indiquant si la recette doit être affichée (true) ou non (false)
+     * Cette fonction de recherche complexe permet de construire un tableau contenant
+     * pour chaque recette son status d'affichage en fonction des filtres en entrée:
+     * 1. champ de texte a trouver parmi
+     *      - titre
+     *      - liste des ingrédients
+     *      - description
+     * 2. Le reste fourni sous forme de différents tableaus.
+     *      - Appareils
+     *      - Ustensiles
+     *      - Ingrédients
      *
-     * stringSearch effectue une recherche dans les champs
-     * - titre
-     * - liste des ingrédients
-     * - description
-     * de toutes les recettes
+     * Le retour est sous la forme d'un tableau d'objets, chaqie objet contenant deux clés:
+     *  - numéro de recette
+     *  - flag indiquant si la recette matche avec les critères fournis
      *
      * @param {string} stringSearch Chaine à chercher
-     * @param {{string}[]} ingredientss Liste des ingrédients
-     * @param {{string}[]} appareils Liste des appareils
-     * @param {{string}[]} ustensiles Liste des ustensiles
-     * @returns {{num: number, toBeDisplayed: boolean}[]} Tableau contenant les numéros de recette match
+     * @param {{category: string, filter: string, element:HTMLElement}[]} filtres Liste des ingrédients
+     * @returns {{id: number, toBeDisplayed: boolean}[]} Tableau contenant les numéros de recette match
      */
-    getRecettesStatus(stringSearch, ingredients, appareils, ustensiles) {
-        var result = []
-        // On commence par filtrer les recettes sur StringSearch
-        this._data.forEach((recette, index) => {
-            
-            if (this.match(recette, stringSearch, ingredients, appareils, ustensiles)) {
-                result.push({num: index, toBeDisplayed: true})
-            } else {
-                result.push({num: index, toBeDisplayed: false})
-            }
+    getRecettesStatusFromCriteres(stringSearch, filtres) {
+        var resultRecettes = []
+        for (var i = 1; i <= this._data.length; i++) {
+            var o = {}
+            o.id = i
+            o.toBeDisplayed = true
+            resultRecettes[i] = o
+        }
+        // Recherche des recettes matchant les filtres
+        this._data.forEach(recette => {
+            filtres.forEach(filtre => {
+                switch (filtre.category) {
+                    case 'ingredients':
+                        // Si cet ingrédient n'est pas dans la liste des ingrédients de cette recette
+                        // Alors suppression
+                        if (recette.ingredients.filter(ingredient => {
+                            return this.normalize(ingredient.ingredient) === filtre.filter
+                        }).length === 0) {
+                            resultRecettes[recette.id].toBeDisplayed = false
+                        }
+                        break;
+                    case 'ustensiles':
+                        // Si cet ustensile n'est pas dans la liste des ustensiles de cette recette
+                        // Alors suppression
+                        if (recette.ustensils.filter(ustensile => {
+                            return this.normalize(ustensile) === filtre.filter
+                        }).length === 0) {
+                            resultRecettes[recette.id].toBeDisplayed = false
+                        }
+                        break;
+                    case 'appareils':
+                        if (this.normalize(recette.appliance) !== filtre.filter) {
+                            // On retire la recette si l'appliance n'est pas la même
+                            resultRecettes[recette.id].toBeDisplayed = false
+                        }
+                        break;
+                }
+            })
         })
-        return result
+        return resultRecettes
     }
+    /**
+     *
+     * @param {string} str
+     * @returns {string}
+     */
+     normalize(str) {
+        if (typeof str !== 'string')
+            return ''
+        return str.charAt(0).toUpperCase() + str.toLocaleLowerCase().slice(1)
+    }
+
+    /*
+        id: number,
+        name: string,
+        servings: number,
+        ingredients: [
+            {
+                ingredient: string,
+                quantity: number optional,
+                unit: string optional
+            }[]
+        ],
+        time: 10,
+        description: string,
+        appliance: string,
+        ustensils: string[]
+    */
 
     /**
      * Retourne la liste de tous les ingrédients distincts
      * contenus dans le tableau de recettes passé en parametre
      */
     getDistinctIngredients(recettesArray) {
+        var ingredientsFiltres = new Set()
+        this._data.forEach(recipe => recipe.ingredients.forEach(ingredient => ingredientsFiltres.add(this.normalize(ingredient.ingredient))))
+        return Array.from(ingredientsFiltres).sort()
     }
-
     /**
      * Retourne la liste de tous les appareils distincts
      * contenus dans le tableau de recettes passé en parametre
      */
-     getDistinctAppareils(recettesArray) {
-     }
+    getDistinctAppareils(recettesArray) {
+        var appareilsFiltres = new Set()
+        this._data.forEach(recipe => appareilsFiltres.add(this.normalize(recipe.appliance)))
+        return Array.from(appareilsFiltres).sort()
+    }
 
     /**
      * Retourne la liste de tous les ustensiles distincts
      * contenus dans le tableau de recettes passé en parametre
      */
-     getDistinctUstensiles(recettesArray) {
-     }
-
-
+    getDistinctUstensiles(recettesArray) {
+        var ustensilesFiltre = new Set()
+        this._data.forEach(recipe => recipe.ustensils.forEach(ustensile => ustensilesFiltre.add(this.normalize(ustensile))))
+        return Array.from(ustensilesFiltre).sort()
+    }
 }
