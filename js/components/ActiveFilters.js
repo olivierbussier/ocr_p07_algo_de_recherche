@@ -16,7 +16,7 @@ export class ActiveFilters {
         this._div.classList.add("postit",cat)
 
         this._div.innerHTML =
-       `<img src="/assets/icones/cross.svg" alt="Clore le badge">
+       `<img src="assets/icones/cross.svg" alt="Clore le badge">
         <p>${filter}</p>`
 
         if (this._activeToasts.filter(element => element.category === category && element.filter === filter).length === 0) {
