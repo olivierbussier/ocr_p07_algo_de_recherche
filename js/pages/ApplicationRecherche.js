@@ -1,6 +1,6 @@
 import { ActiveFilters } from "../components/ActiveFilters.js"
 import { ComboBox } from "../components/ComboBox.js"
-import { CardsRecettes } from "../factories/CardsRecettes.js"
+import { CardsRecettes } from "../components/CardsRecettes.js"
 import { LoadData } from "../lib/LoadData.js"
 import { Search } from "../lib/Search.js"
 
