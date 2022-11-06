@@ -8,7 +8,7 @@ export class ComboBox {
         // Creation de la template
         // <div class="combo-box" data-component="combo-box"></div>
 
-
+        this._hookFunction = null
         this._div = document.createElement('div')
         this._div.classList.add("combo-container")
 
@@ -52,10 +52,13 @@ export class ComboBox {
         this._input.addEventListener('keydown', e => this.onKeydown(e))
     }
 
+    setHook(hookFunction) {
+        this._hookFunction = hookFunction
+    }
     _currentFocus = -1
 
     onKeydown(event) {
-        console.log("keydown:",event.type, event.target)
+        // console.log("keydown:",event.type, event.target)
         // this._currentFocus = -1;
         if (event.keyCode == 40) {
             this._currentFocus++
@@ -94,7 +97,7 @@ export class ComboBox {
     }
 
     onKeyboardInput(event) {
-        console.log("key:",event.type, event.target)
+        // console.log("key:",event.type, event.target)
         var text = event.target.value.toUpperCase()
         for (var option of this._options) {
             if (option.value.toUpperCase().indexOf(text) > -1) {
@@ -106,7 +109,7 @@ export class ComboBox {
     }
 
     onFocus(event) {
-        console.log("focus:",event, event.target)
+        // console.log("focus:",event, event.target)
         if (event.type === 'focusin') {
             this._divOptions.classList.add('active')
         } else if (event.type === 'blur') {
@@ -115,9 +118,12 @@ export class ComboBox {
     }
 
     onclick(event) {
-        console.log("click:",event.type, event.target)
+        // console.log("click:",event.type, event.target)
         this._input.value = event.target.innerText
         this._divOptions.classList.add('active')
+        if (this._hookFunction) {
+            this._hookFunction(event.target.innerText)
+        }
     }
 
     getDOM() {

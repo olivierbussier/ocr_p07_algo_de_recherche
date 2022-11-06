@@ -2,7 +2,8 @@
 @import "~bootstrap/scss/bootstrap";
 
 @import "./utils/variables";
-@import "./components/ComboBox";
+@import "./components/ComboBox",
+        "./components/ActiveFilters";
 
 // Custom styles
 
@@ -107,6 +108,13 @@ h1 {
         font-weight: 400;
 
     }
+}
+
+.filter-active {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0 0 0;
+
 }
 
 .filter-select {

@@ -10893,6 +10893,26 @@ textarea.form-control-lg {
   color: white !important;
 }
 
+.postit {
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: #3282F7;
+  color: white;
+  position: relative;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 5px 5px 5px 10px;
+  border-radius: 5px;
+}
+.postit p {
+  margin: 0;
+  padding: 0;
+}
+.postit img {
+  padding-left: 10px;
+  float: right;
+}
+
 .container {
   background-color: rgb(244, 244, 244);
 }
@@ -10992,6 +11012,12 @@ h1, .h1 {
 .card .p12px {
   font-size: 12px;
   font-weight: 400;
+}
+
+.filter-active {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 0 0;
 }
 
 .filter-select {

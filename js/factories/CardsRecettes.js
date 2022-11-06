@@ -11,7 +11,8 @@ class DisplayRecette {
             li.innerHTML = '<span class="strong">' + ingredient.ingredient + ': ' + '</span>' + textQuantity + textUnit
             ul.appendChild(li)
         })
-        // const img = "assets/images/new/" + String.fromCharCode('abcdefghijklmnopqrs'.charCodeAt(Math.floor(Math.random()*19))) + ".jpg"
+        const stfl = 'abcdefghijklmnopqrstuvwxyz0123456789'
+        // const img = "assets/images/new/" + String.fromCharCode(stfl.charCodeAt(Math.floor(Math.random()*stfl.length))) + ".jpg"
         const img = "https://picsum.photos/380/178?a=" + Math.random(100000)
 
         section.innerHTML =
