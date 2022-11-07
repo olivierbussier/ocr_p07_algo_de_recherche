@@ -1,0 +1,307 @@
+<mxfile host="65bd71144e">
+    <diagram id="Gi8FVHXBFIGFY0iMYfnc" name="Page-1">
+        <mxGraphModel dx="527" dy="454" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="Début" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="20" width="130" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Attente&lt;br&gt;caractère" style="shape=manualInput;whiteSpace=wrap;html=1;size=13;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="80" width="130" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Plus de 2&lt;br style=&quot;font-size: 10px&quot;&gt;caractères ?" style="html=1;whiteSpace=wrap;aspect=fixed;shape=isoRectangle;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="145" y="149" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;endSize=0;entryX=0.502;entryY=0.014;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="8" target="9">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="190" y="200" as="sourcePoint"/>
+                        <mxPoint x="210" y="150" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="" style="endArrow=classic;html=1;exitX=-0.005;exitY=0.517;exitDx=0;exitDy=0;exitPerimeter=0;endSize=0;" edge="1" parent="1" source="9">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="110" y="170" as="sourcePoint"/>
+                        <mxPoint x="190" y="70" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="90" y="180"/>
+                            <mxPoint x="90" y="70"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" value="Non" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;fontSize=10;" connectable="0" vertex="1" parent="13">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint y="21" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="17" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endSize=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2" target="8">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="209.86000000000013" y="60" as="sourcePoint"/>
+                        <mxPoint x="210" y="70" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <UserObject label="Normalisation&lt;br style=&quot;font-size: 10px;&quot;&gt;chaine de caracteres" treeRoot="1" id="24">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=10;" vertex="1" parent="1">
+                        <mxGeometry x="130" y="222" width="130" height="38" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="25" value="" style="endArrow=classic;html=1;exitX=0.501;exitY=0.989;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endSize=0;" edge="1" parent="1" source="9" target="24">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="219.86000000000013" y="70" as="sourcePoint"/>
+                        <mxPoint x="220.55999999999995" y="96.25" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <UserObject label="Effacer les filtres en cours" treeRoot="1" id="26">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=10;" vertex="1" parent="1">
+                        <mxGeometry x="130" y="271" width="130" height="29" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="27" value="" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startSize=4;endSize=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="24" target="26">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="210" y="290" as="sourcePoint"/>
+                        <mxPoint x="219.9999999999999" y="250" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="29" value="loopRecettes =&amp;nbsp;&lt;br&gt;Toutes les recettes" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=10;size=10;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="312" width="130" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="" style="endArrow=classic;html=1;endSize=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="26" target="29">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="209.85000000000002" y="370" as="sourcePoint"/>
+                        <mxPoint x="210" y="320" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <UserObject label="currentRecette = first(loopRecette)" treeRoot="1" id="31">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=10;" vertex="1" parent="1">
+                        <mxGeometry x="130" y="366" width="130" height="34" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="32" value="" style="endArrow=classic;html=1;endSize=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="29" target="31">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="209.69" y="440.0000000000001" as="sourcePoint"/>
+                        <mxPoint x="300" y="352" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <UserObject label="Recherche sur&lt;br style=&quot;font-size: 9px;&quot;&gt;currentRecette.titre" treeRoot="1" id="33">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=9;" vertex="1" parent="1">
+                        <mxGeometry x="130" y="416" width="130" height="34" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="49" value="Non" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;" edge="1" parent="1" source="34" target="35">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="Oui" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;" edge="1" parent="1" source="34" target="50">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="Match ?" style="html=1;whiteSpace=wrap;aspect=fixed;shape=isoRectangle;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="145" y="465" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;" edge="1" parent="1" source="35" target="53">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <UserObject label="Recherche sur&lt;br&gt;currentRecette.description" treeRoot="1" id="35">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=9;" vertex="1" parent="1">
+                        <mxGeometry x="131" y="555" width="129" height="30" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="66" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;" edge="1" parent="1" source="37" target="65">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="loopIngredients =&amp;nbsp;&lt;br style=&quot;font-size: 9px&quot;&gt;currentRecette.ingredients" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=9;size=10;" vertex="1" parent="1">
+                    <mxGeometry x="131" y="692" width="129" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="" style="endArrow=classic;html=1;endSize=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0.05;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="33" target="34">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="230" y="464" as="sourcePoint"/>
+                        <mxPoint x="210" y="460" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="44" value="" style="endArrow=classic;html=1;endSize=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="31" target="33">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="130" y="410" as="sourcePoint"/>
+                        <mxPoint x="225" y="396" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <UserObject label="&#10;&#10;&lt;span style=&quot;color: rgb(240, 240, 240); font-family: helvetica; font-size: 9px; font-style: normal; font-weight: 400; letter-spacing: normal; text-align: center; text-indent: 0px; text-transform: none; word-spacing: 0px; background-color: rgb(42, 42, 42); display: inline; float: none;&quot;&gt;Marquer&lt;/span&gt;&lt;br style=&quot;color: rgb(240, 240, 240); font-family: helvetica; font-size: 9px; font-style: normal; font-weight: 400; letter-spacing: normal; text-align: center; text-indent: 0px; text-transform: none; word-spacing: 0px; background-color: rgb(42, 42, 42);&quot;&gt;&lt;span style=&quot;color: rgb(240, 240, 240); font-family: helvetica; font-size: 9px; font-style: normal; font-weight: 400; letter-spacing: normal; text-align: center; text-indent: 0px; text-transform: none; word-spacing: 0px; background-color: rgb(42, 42, 42); display: inline; float: none;&quot;&gt;currentRecette &quot;à afficher&quot;&lt;/span&gt;&#10;&#10;" treeRoot="1" id="50">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=9;" vertex="1" parent="1">
+                        <mxGeometry x="320" y="480" width="129" height="30" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="52" value="Oui" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;" edge="1" parent="1" source="53" target="54">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="Non" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;" edge="1" parent="1" source="53" target="37">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="Match ?" style="html=1;whiteSpace=wrap;aspect=fixed;shape=isoRectangle;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="145" y="610" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <UserObject label="Marquer &lt;br&gt;currentRecette &quot;à afficher&quot;" treeRoot="1" id="54">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=9;" vertex="1" parent="1">
+                        <mxGeometry x="320" y="625" width="129" height="30" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="64" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;" edge="1" parent="1" source="56" target="62">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <UserObject label="Recherche sur&amp;nbsp;&lt;br&gt;currentIngredient.ingredient" treeRoot="1" id="56">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=10;" vertex="1" parent="1">
+                        <mxGeometry x="130" y="801" width="130" height="34" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="61" value="Oui" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;" edge="1" parent="1" source="62" target="63">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" value="Non" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;exitX=0.499;exitY=0.988;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.499;entryY=0.015;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="62" target="71">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="200" y="920" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="62" value="Match ?" style="html=1;whiteSpace=wrap;aspect=fixed;shape=isoRectangle;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="145" y="847" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <UserObject label="&#10;&#10;&lt;span style=&quot;color: rgb(240, 240, 240); font-family: helvetica; font-size: 9px; font-style: normal; font-weight: 400; letter-spacing: normal; text-align: center; text-indent: 0px; text-transform: none; word-spacing: 0px; background-color: rgb(42, 42, 42); display: inline; float: none;&quot;&gt;Marquer&lt;/span&gt;&lt;br style=&quot;color: rgb(240, 240, 240); font-family: helvetica; font-size: 9px; font-style: normal; font-weight: 400; letter-spacing: normal; text-align: center; text-indent: 0px; text-transform: none; word-spacing: 0px; background-color: rgb(42, 42, 42);&quot;&gt;&lt;span style=&quot;color: rgb(240, 240, 240); font-family: helvetica; font-size: 9px; font-style: normal; font-weight: 400; letter-spacing: normal; text-align: center; text-indent: 0px; text-transform: none; word-spacing: 0px; background-color: rgb(42, 42, 42); display: inline; float: none;&quot;&gt;currentRecette &quot;à afficher&quot;&lt;/span&gt;&#10;&#10;" treeRoot="1" id="63">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=9;" vertex="1" parent="1">
+                        <mxGeometry x="320" y="862" width="129" height="30" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="69" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="65" target="56">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="200" y="790" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <UserObject label="currentIngredient = first(loopIngredients)" treeRoot="1" id="65">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=10;" vertex="1" parent="1">
+                        <mxGeometry x="130" y="750" width="130" height="34" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="74" value="Oui" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;" edge="1" parent="1" source="71" target="73">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" value="Non" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;" edge="1" parent="1" source="71" target="76">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" value="Il reste des ingrédients ?" style="html=1;whiteSpace=wrap;aspect=fixed;shape=isoRectangle;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="145" y="923" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <UserObject label="currentIngredient = next(loopIngredients)" treeRoot="1" id="73">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=10;" vertex="1" parent="1">
+                        <mxGeometry x="130" y="1004" width="130" height="34" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="75" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="73">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="250" y="950" as="sourcePoint"/>
+                        <mxPoint x="195" y="790" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="80" y="1021"/>
+                            <mxPoint x="80" y="790"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="79" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="76">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="470" y="953" as="sourcePoint"/>
+                        <mxPoint x="540" y="953" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <UserObject label="&lt;span style=&quot;color: rgb(240 , 240 , 240) ; font-family: &amp;#34;helvetica&amp;#34; ; font-size: 9px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(42 , 42 , 42) ; display: inline ; float: none&quot;&gt;Marquer&lt;/span&gt;&lt;br style=&quot;color: rgb(240 , 240 , 240) ; font-family: &amp;#34;helvetica&amp;#34; ; font-size: 9px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(42 , 42 , 42)&quot;&gt;&lt;span style=&quot;color: rgb(240 , 240 , 240) ; font-family: &amp;#34;helvetica&amp;#34; ; font-size: 9px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(42 , 42 , 42) ; display: inline ; float: none&quot;&gt;currentRecette &quot;ne pas afficher&quot;&lt;/span&gt;" treeRoot="1" id="76">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=9;" vertex="1" parent="1">
+                        <mxGeometry x="320" y="938" width="129" height="30" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="78" value="Il reste des&lt;br&gt;&amp;nbsp;recettes ?" style="html=1;whiteSpace=wrap;aspect=fixed;shape=isoRectangle;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="991" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <UserObject label="currentRecette = next(loopRecette)" treeRoot="1" id="80">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=10;" vertex="1" parent="1">
+                        <mxGeometry x="130" y="1080" width="130" height="34" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="81" value="Oui" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;exitX=0.502;exitY=0.973;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="78" target="80">
+                    <mxGeometry x="-0.0713" relative="1" as="geometry">
+                        <mxPoint x="360" y="1080" as="sourcePoint"/>
+                        <mxPoint x="300" y="1120" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="540" y="1097"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="83" value="Oui" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="80" target="33">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="40" y="1100" as="sourcePoint"/>
+                        <mxPoint x="140" y="273" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="40" y="1097"/>
+                            <mxPoint x="40" y="433"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="84" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;entryX=0.503;entryY=0.039;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="50" target="78">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="480" y="500" as="sourcePoint"/>
+                        <mxPoint x="540.2" y="923.0000000000002" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="540" y="495"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="85" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="63">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="459" y="963" as="sourcePoint"/>
+                        <mxPoint x="540" y="877" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="86" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="54">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="459" y="650" as="sourcePoint"/>
+                        <mxPoint x="540" y="640" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="92" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;" edge="1" parent="1" source="88" target="89">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <UserObject label="Affichage des recettes marquées &quot;à afficher&quot;" treeRoot="1" id="88">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=9;" vertex="1" parent="1">
+                        <mxGeometry x="640" y="801" width="129" height="30" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <UserObject label="Mise à jour des listes des combos avec les ingrédients, ustensiles et appareils des&amp;nbsp; recettes affichers" treeRoot="1" id="89">
+                    <mxCell style="whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};fontSize=9;" vertex="1" parent="1">
+                        <mxGeometry x="640" y="870" width="129" height="60" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <mxCell id="90" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;exitX=0.99;exitY=0.496;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="78" target="88">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="610" y="1020.38" as="sourcePoint"/>
+                        <mxPoint x="610" y="760" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="610" y="1021"/>
+                            <mxPoint x="610" y="780"/>
+                            <mxPoint x="705" y="780"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="91" value="Non" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;" vertex="1" connectable="0" parent="90">
+                    <mxGeometry x="-0.6939" y="2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="93" value="Fin" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="640" y="1090" width="130" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="" style="edgeStyle=none;html=1;fontSize=9;startSize=4;endSize=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="89" target="93">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="710" y="983" as="sourcePoint"/>
+                        <mxPoint x="801" y="983" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
