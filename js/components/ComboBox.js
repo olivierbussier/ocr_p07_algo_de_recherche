@@ -37,7 +37,7 @@ export class ComboBox {
             var optItem = document.createElement('option')
             optItem.dataset.value = option
             optItem.innerHTML = option
-            optItem.classList.add("active")
+            // optItem.classList.add("active")
             this._divOptions.appendChild(optItem)
             this._options.push(optItem)
         })
@@ -62,10 +62,10 @@ export class ComboBox {
         // this._currentFocus = -1;
         if (event.keyCode == 40) {
             this._currentFocus++
-            this.addActive(this._options);
+            this.addMatch(this._options);
         } else if(event.keyCode == 38) {
             this._currentFocus--
-            this.addActive(this._options);
+            this.addMatch(this._options);
         } else if(event.keyCode == 13) {
             e.preventDefault();
             if (this._currentFocus > -1) {
@@ -76,23 +76,23 @@ export class ComboBox {
         }
     }
 
-    addActive(options) {
+    addMatch(options) {
         if (!options) {
             return false
         }
-        this.removeActive(options)
+        this.removeMatch(options)
         if (this._currentFocus >= options.length) {
             this._currentFocus = 0
         }
         if (this._currentFocus < 0) {
             this._currentFocus = (options.length - 1)
         }
-        options[this._currentFocus].classList.add("active")
+        options[this._currentFocus].classList.remove("unmatch")
     }
 
-    removeActive(options) {
+    removeMatch(options) {
         for (var i = 0; i < options.length; i++) {
-            options[i].classList.remove("active")
+            options[i].classList.add("unmatch")
         }
     }
 
@@ -101,9 +101,9 @@ export class ComboBox {
         var text = event.target.value.toUpperCase()
         for (var option of this._options) {
             if (option.value.toUpperCase().indexOf(text) > -1) {
-                option.classList.add("active")
+                option.classList.remove("unmatch")
             } else {
-                option.classList.remove("active")
+                option.classList.add("unmatch")
             }
         }
     }
@@ -135,9 +135,19 @@ export class ComboBox {
      * @param {string[]} optionList Liste des options que l'on veut afficher
      *  (toutes doivent etre dans les options passer au constructeur)
      */
-    fillOption(optionList) {
+    updateOptionList(optionList) {
+        // debugger
+        this._options.forEach(((option, index) => {
+            // if (option.value === "Pois Cassé")
+            if (optionList.indexOf(option.value) !== -1) {
+                option.classList.remove("inactive")
+                console.log("optionlist=",optionList.indexOf(option.value), "value=", option.value )
+            } else {
+                option.classList.add("inactive")
+                console.log("optionlist=",optionList.indexOf(option.value), "value=", option.value )
+            }
+        }))
         optionList.forEach(element => {
-
         });
     }
 }

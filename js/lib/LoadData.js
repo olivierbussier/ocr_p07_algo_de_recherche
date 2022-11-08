@@ -9,11 +9,13 @@ export class LoadData {
      * @returns
      */
     async fetchData () {
-        return await fetch(this._url)
-        .then((response) => response.json())
-        .then((data) => {
-            this._data = data
-        })
+        await fetch(this._url)
+        return await response.json()
+
+        // .then((response) => response.json())
+        // .then((data) => {
+        //     this._data = data
+        // })
     }
     getData() {
         return this._data

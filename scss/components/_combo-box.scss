@@ -41,7 +41,7 @@
             }
         }
         option {
-            display: none;
+            display: block;
             padding: 0 5px;
             margin: 0;
             color: inherit;
@@ -50,8 +50,11 @@
             &:hover {
                 filter: opacity(15%)
             }
-            &.active{
-                display: block;
+            &.inactive{
+                display: none!important;
+            }
+            &.unmatch {
+                display: none;
             }
         }
     }

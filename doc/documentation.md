@@ -6,14 +6,29 @@ paginate: true
 backgroundColor: #fff
 backgroundImage: url('https://marp.app/assets/hero-background.svg')
 ---
+<!-- <style>
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
+pre {
+    background-color: black;
+    border-radius:10px;
+    padding:10px;
+    color:white;
+}
+h1 {
 
-![bg left:40% 80%](https://marp.app/assets/marp.svg)
+}
+</style> -->
 
-# **Marp**
+![bg left:40% 80%](../assets/icones/logo.svg)
 
-Markdown Presentation Ecosystem
+# Les petits plats
 
-https://marp.app/
+Documentation
+
+[https://olivierbussier.github.io/](https://olivierbussier.github.io/ocr_p7_algo_de_recherche/)
 
 ---
 
@@ -40,7 +55,7 @@ L'ensemble des recettes est chargé via un fetch au démarrage de l'application 
 # Environnement de développement
 
 Le projet utilise :
-- bootstrap V5.2.2 pour l'interface.
+- bootstrap V5.2.2 pour l'interface (sous forme scss, généré avec webpack).
 - webpack avec Sass / PostCSS / Autoprefixer et Minifier
 
 Pour installer webpack, il suffit de lancer la commande suivante depuis le répertoire de base du projet (les pré-requis sont Node.JS et npm/yarn):
@@ -51,8 +66,48 @@ Pour transpiler les fichiers scss:
 
 Développement : ```/home/user/projet/>yarn run build:dev```
 Production    : ```/home/user/projet/>yarn run build```
+watch /Dev    : ```/home/user/projet/>yarn run watch```
 
 ---
-# Investigation fonctionalité "boucles natives"
+# Implementation de la fonction recherche
 
-![height:25cm](../doc/Recherche-implémentation%201.svg)
+La fonctionalité de recherche est implémentée dans un composant nommé "Recherche" et situé dans le fichier "Recherche.js"
+
+## Interface du composant "Recherche"
+
+    Recherche.constructor({any}[]: data)
+Le paramètre du constructeur est un tableau d'objets dans lesquels les recherches sont à faire
+
+    Normalize(string: chaine)
+
+Pemet de normaliser les chaines de caractères à convenance. Dans cette implémentation, la chaine est transformée en minuscules et sa 1ere lettre est mise en Majuscule, ainsi, "Casserole De Grande Taille" sera normalisé en "Casserolle de grande taille"
+
+    Recherche('chaine')
+
+Lance l'algorithme de recherche
+
+---
+# Implémentation par "boucles natives"
+Dans cette implémentation, seules sont utilisées les boucles for/while et les conditions élémentaires pour faire l'ensemble des traitements.
+
+![h:24cm center](../doc/Recherche-implémentation-native.svg)
+
+---
+# Implémentation "méthodes JS tableaux"
+![w:19cm h:19cm center](../doc/Recherche-implémentation-arraymethodes.svg)
+
+Dans cette implémentation, l'opération de recherche des corespondances s'effectue de manière très compacte utilisant une méthode map et une méthode reduce
+
+        Recettes.map((recette) => {
+            if (match(recette.description) ||
+                match(recette.titre)) ||
+                recette.ingredients.reduce((ingredient) => match(ingredient.ingredient)}) > 0) {
+                return {id: recette.id, display: true}
+            } else {
+                return {id: recette.id, display: false}
+            }
+        })
+
+<pre>
+dsqdsqdsqdsq
+</pre>

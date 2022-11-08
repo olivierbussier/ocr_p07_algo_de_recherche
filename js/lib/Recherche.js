@@ -1,4 +1,6 @@
-export class Search {
+import { Utils } from "./Utils.js"
+
+export class Recherche {
     constructor(data) {
         this._data = data
     }
@@ -42,23 +44,19 @@ export class Search {
                     case 'ingredients':
                         // Si cet ingrédient n'est pas dans la liste des ingrédients de cette recette
                         // Alors suppression
-                        if (recette.ingredients.filter(ingredient => {
-                            return this.normalize(ingredient.ingredient) === filtre.filter
-                        }).length === 0) {
+                        if (recette.ingredients.filter(ingredient => Utils.normalize(ingredient.ingredient) === Utils.normalize(filtre.filter)).length === 0) {
                             resultRecettes[recette.id].toBeDisplayed = false
                         }
                         break;
                     case 'ustensiles':
                         // Si cet ustensile n'est pas dans la liste des ustensiles de cette recette
                         // Alors suppression
-                        if (recette.ustensils.filter(ustensile => {
-                            return this.normalize(ustensile) === filtre.filter
-                        }).length === 0) {
+                        if (recette.ustensils.filter(ustensile => Utils.normalize(ustensile) === Utils.normalize(filtre.filter)).length === 0) {
                             resultRecettes[recette.id].toBeDisplayed = false
                         }
                         break;
                     case 'appareils':
-                        if (this.normalize(recette.appliance) !== filtre.filter) {
+                        if (Utils.normalize(recette.appliance) !== Utils.normalize(filtre.filter)) {
                             // On retire la recette si l'appliance n'est pas la même
                             resultRecettes[recette.id].toBeDisplayed = false
                         }
@@ -68,17 +66,6 @@ export class Search {
         })
         return resultRecettes
     }
-    /**
-     *
-     * @param {string} str
-     * @returns {string}
-     */
-     normalize(str) {
-        if (typeof str !== 'string')
-            return ''
-        return str.charAt(0).toUpperCase() + str.toLocaleLowerCase().slice(1)
-    }
-
     /*
         id: number,
         name: string,
@@ -102,7 +89,11 @@ export class Search {
      */
     getDistinctIngredients(recettesArray) {
         var ingredientsFiltres = new Set()
-        this._data.forEach(recipe => recipe.ingredients.forEach(ingredient => ingredientsFiltres.add(this.normalize(ingredient.ingredient))))
+        this._data.forEach(recipe => {
+            if (!recettesArray || recettesArray[recipe.id-1].toBeDisplayed) {
+                recipe.ingredients.forEach(ingredient => ingredientsFiltres.add(Utils.normalize(ingredient.ingredient)))
+            }
+        })
         return Array.from(ingredientsFiltres).sort()
     }
     /**
@@ -111,7 +102,7 @@ export class Search {
      */
     getDistinctAppareils(recettesArray) {
         var appareilsFiltres = new Set()
-        this._data.forEach(recipe => appareilsFiltres.add(this.normalize(recipe.appliance)))
+        this._data.forEach(recipe => appareilsFiltres.add(Utils.normalize(recipe.appliance)))
         return Array.from(appareilsFiltres).sort()
     }
 
@@ -121,7 +112,30 @@ export class Search {
      */
     getDistinctUstensiles(recettesArray) {
         var ustensilesFiltre = new Set()
-        this._data.forEach(recipe => recipe.ustensils.forEach(ustensile => ustensilesFiltre.add(this.normalize(ustensile))))
+        this._data.forEach(recipe => recipe.ustensils.forEach(ustensile => ustensilesFiltre.add(Utils.normalize(ustensile))))
         return Array.from(ustensilesFiltre).sort()
     }
+
+
+    getElementsFromRecettes(listeRecettesActualisee, data) {
+        var ingredients = new Set()
+        var ustensiles = new Set()
+        var appareils = new Set()
+
+        listeRecettesActualisee.forEach(r => {
+            if (r.toBeDisplayed) {
+                const recette = data[r.id-1]
+
+                appareils.add(recette.appliance)
+                recette.ingredients.forEach(ingredient => ingredients.add(ingredient.ingredient))
+                recette.ustensils.forEach(ustensile => ustensiles.add(ustensile))
+            }
+        })
+        const i = Array.from(ingredients)
+        const u = Array.from(ustensiles)
+        const a = Array.from(appareils)
+
+        return {ingredients:i, ustensiles:u, appareils:a}
+    }
+
 }

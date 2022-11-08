@@ -11,7 +11,8 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 const config = {
   entry: {
     index: "./js/index.js",
-    style: "./scss/pages/application-recherche.scss"
+    style: "./scss/pages/application-recherche.scss",
+    //theme_marp: "./doc/theme_marp.scss"
   },
   output: {
     path: path.resolve(__dirname, "build"),

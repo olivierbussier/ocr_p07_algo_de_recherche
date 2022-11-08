@@ -1,4 +1,11 @@
+import { Utils } from "../lib/Utils.js"
+
 class DisplayRecette {
+    /**
+     * Permet la création d'un element HTMLElement d'une recette
+     *
+     * @param {*} recette
+     */
     constructor(recette) {
         const section = document.createElement('div')
         section.setAttribute('class', "col-sm")
@@ -37,20 +44,38 @@ class DisplayRecette {
         section.querySelector('.card-body.ingredients').appendChild(ul)
         this._section = section
     }
+    /**
+     * Recuperation du DOM construit
+     *
+     * @returns {HTMLElement}
+     */
     getDOM() {
         return this._section
     }
+
+    /**
+     * Permet de normaliser les unités afin d'éviter les débordements
+     * de zone
+     *
+     * @param {string} unit
+     * @returns {string}
+     */
     convertUnit(unit) {
         var newUnit
 
         switch (unit) {
             case "grammes": newUnit = 'g'; break
             case "cuillères à soupe": newUnit = ' cuillères'; break
+            case "gousses": newUnit = ' gousse(s)'; break;
+            case "boites": newUnit = ' boite(s)'; break;
             default: newUnit = unit; break
         }
         return newUnit
     }
+
     /**
+     * Permet de réaliser la fonction css "text-overflow: ellipsis" sur des textes
+     * multi-lignes
      *
      * @param {string} text
      * @param {number} len
@@ -74,6 +99,11 @@ class DisplayRecette {
 }
 
 export class CardsRecettes {
+    /**
+     * Crée le DOM de l'ensemble des recettes
+     *
+     * @param {{}[]} recettes
+     */
     constructor (recettes) {
         this._data = recettes
         this._recettes = []
@@ -88,6 +118,12 @@ export class CardsRecettes {
         })
     }
 
+    /**
+     * Permet d'afficher ou masquer les recettes en fonction d'un tableau
+     * avec le status de tous les elements passé en parametre
+     *
+     * @param {{id: number, toBeDisplayed: boolean}[]} recettesArray
+     */
     display(recettesArray) {
         recettesArray.forEach(recette => {
             if (recette.toBeDisplayed) {
@@ -97,4 +133,25 @@ export class CardsRecettes {
             }
         })
     }
+
+    getElementsFromRecettes(listeRecettesActualisee, data) {
+        var ingredients = new Set()
+        var ustensiles = new Set()
+        var appareils = new Set()
+
+        listeRecettesActualisee.forEach(r => {
+            if (r.toBeDisplayed) {
+                const recette = data[r.id-1]
+
+                appareils.add(Utils.normalize(recette.appliance))
+                recette.ingredients.forEach(ingredient => ingredients.add(Utils.normalize(ingredient.ingredient)))
+                recette.ustensils.forEach(ustensile => ustensiles.add(Utils.normalize(ustensile)))
+            }
+        })
+        const i = Array.from(ingredients)
+        const u = Array.from(ustensiles)
+        const a = Array.from(appareils)
+        return {ingredients:i, ustensiles:u, appareils:a}
+    }
+
 }
