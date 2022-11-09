@@ -40,9 +40,10 @@ export class DisplayRecette {
            `<article class="card">
                 <img class="img-card-head card-img-top" src="${img}" alt="Recette">
                 <div class="card-body">
-                    <h5 class="card-title">${recette.name}
-                        <span class="float-right">
-                            <img src="assets/icones/clock.svg"> ${recette.time}mn
+                    <h5 class="card-title mt-3">${recette.name}
+                        <span class="float-right fw-bold">
+                            <img src="assets/icones/clock.svg">
+                            <span>${recette.time}mn</span>
                         </span>
                     </h5>
                 </div>
