@@ -21,6 +21,7 @@ export class ComboBox {
         // this._input.setAttribute("type", "text")
         // this._input.setAttribute("list", "")
         this._input.setAttribute("name", name)
+        this._input.setAttribute("placeholder", name)
         this._combo.appendChild(this._input)
 
         // const essai = document.createElement('div')
@@ -58,8 +59,6 @@ export class ComboBox {
     _currentFocus = -1
 
     onKeydown(event) {
-        // console.log("keydown:",event.type, event.target)
-        // this._currentFocus = -1;
         if (event.keyCode == 40) {
             this._currentFocus++
             this.addMatch(this._options);
@@ -97,7 +96,6 @@ export class ComboBox {
     }
 
     onKeyboardInput(event) {
-        // console.log("key:",event.type, event.target)
         var text = event.target.value.toUpperCase()
         for (var option of this._options) {
             if (option.value.toUpperCase().indexOf(text) > -1) {
@@ -109,7 +107,6 @@ export class ComboBox {
     }
 
     onFocus(event) {
-        // console.log("focus:",event, event.target)
         if (event.type === 'focusin') {
             this._divOptions.classList.add('active')
         } else if (event.type === 'blur') {
@@ -118,11 +115,10 @@ export class ComboBox {
     }
 
     onclick(event) {
-        // console.log("click:",event.type, event.target)
-        this._input.value = event.target.innerText
+        this._input.value = ''
         this._divOptions.classList.add('active')
         if (this._hookFunction) {
-            this._hookFunction(event.target.innerText)
+            this._hookFunction(event.target.value)
         }
     }
 
@@ -136,18 +132,13 @@ export class ComboBox {
      *  (toutes doivent etre dans les options passer au constructeur)
      */
     updateOptionList(optionList) {
-        // debugger
         this._options.forEach(((option, index) => {
             // if (option.value === "Pois Cassé")
             if (optionList.indexOf(option.value) !== -1) {
                 option.classList.remove("inactive")
-                console.log("optionlist=",optionList.indexOf(option.value), "value=", option.value )
             } else {
                 option.classList.add("inactive")
-                console.log("optionlist=",optionList.indexOf(option.value), "value=", option.value )
             }
         }))
-        optionList.forEach(element => {
-        });
     }
 }

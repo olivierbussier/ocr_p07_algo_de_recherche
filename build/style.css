@@ -10852,6 +10852,12 @@ textarea.form-control-lg {
 .combo-container .combo-box input:focus {
   outline: none;
 }
+.combo-container .combo-box input::-moz-placeholder {
+  color: white;
+}
+.combo-container .combo-box input::placeholder {
+  color: white;
+}
 .combo-container .combo-box datalist {
   background-color: inherit;
   z-index: 2;
@@ -10985,6 +10991,11 @@ textarea.form-control-lg {
 .card .model-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+}
+.card .debug {
+  grid-column: 1/3;
+  grid-row: 2;
 }
 .card .p12px {
   font-size: 12px;

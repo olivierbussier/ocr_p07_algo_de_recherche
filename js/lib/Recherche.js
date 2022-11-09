@@ -5,9 +5,14 @@ export class Recherche {
         this._data = data
     }
 
-    match(recette, str, ingredients, appareils, ustensiles) {
-        // Recherche de la chaine de caractères si longueur > 3
-        // Sinon, recherche sur toutes les recettes
+    /**
+     *
+     * @param {string} stringSearch
+     * @param {string} texte
+     * @returns {number}
+     */
+    match(stringSearch, texte) {
+        return texte.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1
     }
     /**
      * Cette fonction de recherche complexe permet de construire un tableau contenant
@@ -37,32 +42,49 @@ export class Recherche {
             o.toBeDisplayed = true
             resultRecettes[i] = o
         }
-        // Recherche des recettes matchant les filtres
-        this._data.forEach(recette => {
-            filtres.forEach(filtre => {
-                switch (filtre.category) {
-                    case 'ingredients':
-                        // Si cet ingrédient n'est pas dans la liste des ingrédients de cette recette
-                        // Alors suppression
-                        if (recette.ingredients.filter(ingredient => Utils.normalize(ingredient.ingredient) === Utils.normalize(filtre.filter)).length === 0) {
-                            resultRecettes[recette.id].toBeDisplayed = false
-                        }
-                        break;
-                    case 'ustensiles':
-                        // Si cet ustensile n'est pas dans la liste des ustensiles de cette recette
-                        // Alors suppression
-                        if (recette.ustensils.filter(ustensile => Utils.normalize(ustensile) === Utils.normalize(filtre.filter)).length === 0) {
-                            resultRecettes[recette.id].toBeDisplayed = false
-                        }
-                        break;
-                    case 'appareils':
-                        if (Utils.normalize(recette.appliance) !== Utils.normalize(filtre.filter)) {
-                            // On retire la recette si l'appliance n'est pas la même
-                            resultRecettes[recette.id].toBeDisplayed = false
-                        }
-                        break;
+
+        // Fonction de recherche textuelle
+        if (stringSearch.length >= 3) {
+            this._data.map((recette) => {
+                if (this.match(stringSearch, recette.description) ||
+                    this.match(stringSearch, recette.name) ||
+                    recette.ingredients.reduce((accu, ingredient) => {
+                        return accu + (this.match(stringSearch, ingredient.ingredient) == true) ? 1 : 0
+                     }, 0) > 0) {
+                    resultRecettes[recette.id].toBeDisplayed = true
+                } else {
+                    resultRecettes[recette.id].toBeDisplayed = false
                 }
             })
+        }
+        // Recherche des recettes matchant les filtres
+        this._data.forEach(recette => {
+            if (resultRecettes[recette.id].toBeDisplayed == true) {
+                filtres.forEach(filtre => {
+                    switch (filtre.category) {
+                        case 'ingredients':
+                            // Si cet ingrédient n'est pas dans la liste des ingrédients de cette recette
+                            // Alors suppression
+                            if (recette.ingredients.filter(ingredient => Utils.normalize(ingredient.ingredient) === Utils.normalize(filtre.filter)).length === 0) {
+                                resultRecettes[recette.id].toBeDisplayed = false
+                            }
+                            break;
+                        case 'ustensiles':
+                            // Si cet ustensile n'est pas dans la liste des ustensiles de cette recette
+                            // Alors suppression
+                            if (recette.ustensils.filter(ustensile => Utils.normalize(ustensile) === Utils.normalize(filtre.filter)).length === 0) {
+                                resultRecettes[recette.id].toBeDisplayed = false
+                            }
+                            break;
+                        case 'appareils':
+                            if (Utils.normalize(recette.appliance) !== Utils.normalize(filtre.filter)) {
+                                // On retire la recette si l'appliance n'est pas la même
+                                resultRecettes[recette.id].toBeDisplayed = false
+                            }
+                            break;
+                    }
+                })
+            }
         })
         return resultRecettes
     }

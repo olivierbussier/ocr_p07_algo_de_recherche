@@ -28,6 +28,9 @@
             &:focus {
                 outline: none;
             }
+            &::placeholder {
+                color:white;
+            }
         }
         datalist {
             background-color: inherit;

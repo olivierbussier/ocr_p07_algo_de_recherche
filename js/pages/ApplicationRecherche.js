@@ -3,6 +3,7 @@ import { ComboBox } from "../components/ComboBox.js"
 import { CardsRecettes } from "../components/CardsRecettes.js"
 import { LoadData } from "../lib/LoadData.js"
 import { Recherche } from "../lib/Recherche.js"
+import { Input } from "../components/Input.js"
 
 export class ApplicationRecherche {
 
@@ -25,6 +26,15 @@ export class ApplicationRecherche {
 
         // Recettes
         this._cardsRecettes = new CardsRecettes(this._data)
+
+        // Input
+        const customInput = document.querySelector(".custom-input")
+        this._input = new Input(customInput)
+        this._input.setHook(event => {
+            this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres(event.target.value, activeFilters.get())
+            this._cardsRecettes.display(this._listeRecettesActualisee)
+            this.updateCombo()
+        })
 
         // Badges
         const root = document.getElementById("filter-active")

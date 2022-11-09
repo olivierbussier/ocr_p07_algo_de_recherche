@@ -18,6 +18,14 @@ class DisplayRecette {
             li.innerHTML = '<span class="strong">' + ingredient.ingredient + ': ' + '</span>' + textQuantity + textUnit
             ul.appendChild(li)
         })
+        var debug='', virg=''
+        debug += 'id recette:' + recette.id + '<br>'
+        debug +='ustensiles: '
+        recette.ustensils.forEach((u) => {
+            debug += (virg+u)
+            virg=', '
+        })
+        debug += '<br>appareils: ' + recette.appliance
         const stfl = 'abcdefghijklmnopqrstuvwxyz0123456789'
         // const img = "assets/images/new/" + String.fromCharCode(stfl.charCodeAt(Math.floor(Math.random()*stfl.length))) + ".jpg"
         const img = "https://picsum.photos/380/178?a=" + Math.random(100000)
@@ -39,6 +47,7 @@ class DisplayRecette {
                     <div class="card-body">
                         <p class="card-text p12px multiline-ellipsis">${this.truncateText(recette.description,200)}</p>
                     </div>
+                    <div class="card-body debug">${debug}</div>
                 </div>
             </article>`
         section.querySelector('.card-body.ingredients').appendChild(ul)
