@@ -15,8 +15,8 @@ export class DisplayRecette {
         recette.ingredients.forEach((ingredient) => {
             var li = document.createElement('li')
             const textUnit = !ingredient.unit ? '' : this.convertUnit(ingredient.unit)
-            const textQuantity = !ingredient.quantity ? '' : ingredient.quantity
-            li.innerHTML = '<span class="strong">' + ingredient.ingredient + ': ' + '</span>' + textQuantity + textUnit
+            const textQuantity = !ingredient.quantity ? '' : ': ' + ingredient.quantity
+            li.innerHTML = '<span class="strong">' + ingredient.ingredient + '</span>' + textQuantity + textUnit
             ul.appendChild(li)
         })
         if (0) {
@@ -59,6 +59,7 @@ export class DisplayRecette {
         section.querySelector('.card-body.ingredients').appendChild(ul)
         this._section = section
     }
+
     /**
      * Recuperation du DOM construit
      *
@@ -82,6 +83,7 @@ export class DisplayRecette {
             case "barquettes":        newUnit = ' barquette(s)'; break;
             case "boites":            newUnit = ' boite(s)' ;    break;
             case "cuillères à café":  newUnit = ' c. à café';    break
+            case "cuillère à soupe":  newUnit = ' c. à soupe';   break
             case "cuillères à soupe": newUnit = ' c. à soupe';   break
             case "feuilles":          newUnit = ' feuille(s)';   break;
             case "gousses":           newUnit = ' gousse(s)';    break;

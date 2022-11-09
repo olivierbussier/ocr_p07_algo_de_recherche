@@ -18,8 +18,15 @@ export class CardsRecettes {
             this._recettes[recette.id] = elem
             section.appendChild(elem)
         })
+        section.appendChild(this.emptyCard())
+        section.appendChild(this.emptyCard())
     }
 
+    emptyCard() {
+        const div = document.createElement('div')
+        div.setAttribute('class', "col-sm")
+        return div
+    }
     /**
      * Permet d'afficher ou masquer les recettes en fonction d'un tableau
      * avec le status de tous les elements passé en parametre
