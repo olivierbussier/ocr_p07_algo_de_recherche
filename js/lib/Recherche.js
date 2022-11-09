@@ -1,19 +1,62 @@
 import { Utils } from "./Utils.js"
 
 export class Recherche {
+
+    /**
+     *
+     * @param {{}[]} data Tableau des recettes
+     */
     constructor(data) {
         this._data = data
     }
 
     /**
+     * Fonction utilisée pour formater et comparer deux chaines de caractères
+     * Ici on effectue la transformation/normalisation en caracteres minuscules
      *
-     * @param {string} stringSearch
-     * @param {string} texte
-     * @returns {number}
+     * @param {string} stringSearch la chaine à chercher
+     * @param {string} texte le texte dans lequel chercher
+     * @returns {number} true si stringSearch est contenu dans texte
      */
     match(stringSearch, texte) {
         return texte.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1
     }
+
+    /**
+     * Effectue une recherche textuelle sur les recettes, sur les champs :
+     * - titre
+     * - description
+     * - ingrédients
+     *
+     * @param {{}[]} recettes liste des recettes dans lesquelles chercher
+     * @param {string} stringSearch la chaine de caracteres à chercher
+     * @returns {{}[]}  retourne un tableau de booleens key = id de la recette, value = true si la recette doit etre affichée, false sinon
+     */
+    textualSearch(recettes, stringSearch) {
+        // Fonction de recherche textuelle
+        var resultRecettes = []
+        for (var i = 1; i <= this._data.length; i++) {
+            var o = {}
+            o.id = i
+            o.toBeDisplayed = true
+            resultRecettes[i] = o
+        }
+        if (stringSearch.length >= 3) {
+            recettes.map((recette) => {
+                if (this.match(stringSearch, recette.description) ||
+                    this.match(stringSearch, recette.name) ||
+                    recette.ingredients.reduce((accu, ingredient) => {
+                        return accu + (this.match(stringSearch, ingredient.ingredient) == true) ? 1 : 0
+                     }, 0) > 0) {
+                    resultRecettes[recette.id].toBeDisplayed = true
+                } else {
+                    resultRecettes[recette.id].toBeDisplayed = false
+                }
+            })
+        }
+        return resultRecettes
+    }
+
     /**
      * Cette fonction de recherche complexe permet de construire un tableau contenant
      * pour chaque recette son status d'affichage en fonction des filtres en entrée:
@@ -35,28 +78,10 @@ export class Recherche {
      * @returns {{id: number, toBeDisplayed: boolean}[]} Tableau contenant les numéros de recette match
      */
     getRecettesStatusFromCriteres(stringSearch, filtres) {
-        var resultRecettes = []
-        for (var i = 1; i <= this._data.length; i++) {
-            var o = {}
-            o.id = i
-            o.toBeDisplayed = true
-            resultRecettes[i] = o
-        }
 
-        // Fonction de recherche textuelle
-        if (stringSearch.length >= 3) {
-            this._data.map((recette) => {
-                if (this.match(stringSearch, recette.description) ||
-                    this.match(stringSearch, recette.name) ||
-                    recette.ingredients.reduce((accu, ingredient) => {
-                        return accu + (this.match(stringSearch, ingredient.ingredient) == true) ? 1 : 0
-                     }, 0) > 0) {
-                    resultRecettes[recette.id].toBeDisplayed = true
-                } else {
-                    resultRecettes[recette.id].toBeDisplayed = false
-                }
-            })
-        }
+        // On commence par la recherche textuelle
+        var resultRecettes = this.textualSearch(this._data, stringSearch)
+
         // Recherche des recettes matchant les filtres
         this._data.forEach(recette => {
             if (resultRecettes[recette.id].toBeDisplayed == true) {
@@ -88,41 +113,24 @@ export class Recherche {
         })
         return resultRecettes
     }
-    /*
-        id: number,
-        name: string,
-        servings: number,
-        ingredients: [
-            {
-                ingredient: string,
-                quantity: number optional,
-                unit: string optional
-            }[]
-        ],
-        time: 10,
-        description: string,
-        appliance: string,
-        ustensils: string[]
-    */
 
     /**
      * Retourne la liste de tous les ingrédients distincts
-     * contenus dans le tableau de recettes passé en parametre
+     *
+     * @returns {array}
      */
-    getDistinctIngredients(recettesArray) {
+    getDistinctIngredients() {
         var ingredientsFiltres = new Set()
-        this._data.forEach(recipe => {
-            if (!recettesArray || recettesArray[recipe.id-1].toBeDisplayed) {
-                recipe.ingredients.forEach(ingredient => ingredientsFiltres.add(Utils.normalize(ingredient.ingredient)))
-            }
-        })
+        this._data.forEach(recipe => recipe.ingredients.forEach(ingredient => ingredientsFiltres.add(Utils.normalize(ingredient.ingredient))))
         return Array.from(ingredientsFiltres).sort()
     }
+
     /**
      * Retourne la liste de tous les appareils distincts
-     * contenus dans le tableau de recettes passé en parametre
+     *
+     * @returns {array}
      */
-    getDistinctAppareils(recettesArray) {
+    getDistinctAppareils() {
         var appareilsFiltres = new Set()
         this._data.forEach(recipe => appareilsFiltres.add(Utils.normalize(recipe.appliance)))
         return Array.from(appareilsFiltres).sort()
@@ -130,14 +138,14 @@ export class Recherche {
 
     /**
      * Retourne la liste de tous les ustensiles distincts
-     * contenus dans le tableau de recettes passé en parametre
+     *
+     * @returns {array}
      */
-    getDistinctUstensiles(recettesArray) {
+    getDistinctUstensiles() {
         var ustensilesFiltre = new Set()
         this._data.forEach(recipe => recipe.ustensils.forEach(ustensile => ustensilesFiltre.add(Utils.normalize(ustensile))))
         return Array.from(ustensilesFiltre).sort()
     }
-
 
     getElementsFromRecettes(listeRecettesActualisee, data) {
         var ingredients = new Set()
@@ -148,16 +156,17 @@ export class Recherche {
             if (r.toBeDisplayed) {
                 const recette = data[r.id-1]
 
-                appareils.add(recette.appliance)
-                recette.ingredients.forEach(ingredient => ingredients.add(ingredient.ingredient))
-                recette.ustensils.forEach(ustensile => ustensiles.add(ustensile))
+                appareils.add(Utils.normalize(recette.appliance))
+                recette.ingredients.forEach(ingredient => ingredients.add(Utils.normalize(ingredient.ingredient)))
+                recette.ustensils.forEach(ustensile => ustensiles.add(Utils.normalize(ustensile)))
             }
         })
         const i = Array.from(ingredients)
         const u = Array.from(ustensiles)
         const a = Array.from(appareils)
-
         return {ingredients:i, ustensiles:u, appareils:a}
     }
+
+
 
 }

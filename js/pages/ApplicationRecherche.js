@@ -1,9 +1,8 @@
 import { ActiveFilters } from "../components/ActiveFilters.js"
 import { ComboBox } from "../components/ComboBox.js"
 import { CardsRecettes } from "../components/CardsRecettes.js"
-import { LoadData } from "../lib/LoadData.js"
 import { Recherche } from "../lib/Recherche.js"
-import { Input } from "../components/Input.js"
+import { CustomInput } from "../components/CustomInput.js"
 
 export class ApplicationRecherche {
 
@@ -11,85 +10,160 @@ export class ApplicationRecherche {
         this.run(fichierRecettes)
     }
 
+    /**
+     * Mise à jour des combo avec la liste des recettes encore affichées
+     */
     updateCombo() {
         // Récupération des choix restants en fonction des recettes affichées
-        const {ingredients, ustensiles, appareils} = this._cardsRecettes.getElementsFromRecettes(this._listeRecettesActualisee, this._data)
+        const {ingredients, ustensiles, appareils} = this._search.getElementsFromRecettes(this._listeRecettesActualisee, this._data)
         this._comboIngredients.updateOptionList(ingredients)
         this._comboUstensiles.updateOptionList(ustensiles)
         this._comboAppareils.updateOptionList(appareils)
     }
 
-    async run(fichierRecettes) {
-        // Try to load data
-        const response = await fetch(fichierRecettes)
-        this._data = await response.json()
-
-        // Recettes
-        this._cardsRecettes = new CardsRecettes(this._data)
-
-        // Input
-        const customInput = document.querySelector(".custom-input")
-        this._input = new Input(customInput)
-        this._input.setHook(event => {
-            this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres(event.target.value, activeFilters.get())
-            this._cardsRecettes.display(this._listeRecettesActualisee)
-            this.updateCombo()
-        })
-
-        // Badges
-        const root = document.getElementById("filter-active")
-        const activeFilters = new ActiveFilters(root)
-        activeFilters.setHook((element) => {
-            // On vient de supprimer un filtre
+    /**
+     * Fonction utilisée pour créer un combo. Elle contient le code nécessaire a la création
+     * de l'élément HTML et aussi du gestionnaire d'evt sur un click dans le combo
+     *
+     * @param {string} type Le type de combo à créer (ingredients, ustensiles ou appareils)
+     * @param {array} distinctChoices   La liste des choix possibles (distinct list)
+     * @param {string} classOverride    La surcharge de classe du combo pour styliser en fonction d type
+     * @param {HTMLElement} parentElement   L'élément parent ou sera fait le "appendChild"
+     * @returns {HTMLElement}   L'élément crée
+     */
+    createCombo(type, distinctChoices, classOverride, parentElement) {
+        const combo = new ComboBox(type, distinctChoices, classOverride)
+        parentElement.appendChild(combo.getDOM())
+        combo.setHook((newFilter) => {
+            // Hook : On arrive ici suite à l'ajout d'un filtre
+            this._activeFilters.add(type, newFilter)
             // Mise à jour de la liste des recettes à afficher
-            // Mise à jour des combo-box avec les choix restants
-            this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres('', activeFilters.get())
+            this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres(this._searchString, this._activeFilters.get())
             this._cardsRecettes.display(this._listeRecettesActualisee)
+            // Mise à jour de la combo-box avec les choix restants
             this.updateCombo()
         })
-        // Recherche
-        this._search= new Recherche(this._data)
-        this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres('', activeFilters.get())
-
-        // Identification de la zone ComboBox
-        const zoneCombo = document.querySelector('.filter-select')
-
-        // Création des 3 combos
-        this._comboIngredients = new ComboBox("ingredients", this._search.getDistinctIngredients(), "color-combo-ingredients")
-        zoneCombo.appendChild(this._comboIngredients.getDOM())
-        this._comboIngredients.setHook((newFilter) => {
-            // Hook : On arrive ici suite à l'ajout d'un ingrédient
-            activeFilters.add("ingredients", newFilter)
-            // Mise à jour de la liste des recettes à afficher
-            this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres('', activeFilters.get())
-            this._cardsRecettes.display(this._listeRecettesActualisee)
-            // Mise à jour des combo-box avec les choix restants
-            this.updateCombo()
-        })
-
-        this._comboUstensiles = new ComboBox("ustensiles", this._search.getDistinctUstensiles(), "color-combo-ustensiles")
-        zoneCombo.appendChild(this._comboUstensiles.getDOM())
-        this._comboUstensiles.setHook((newFilter) => {
-            // Hook : On arrive ici suite à l'ajout d'un ustensile
-            activeFilters.add("ustensiles", newFilter)
-            // Mise à jour de la liste des recettes à afficher
-            this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres('', activeFilters.get())
-            this._cardsRecettes.display(this._listeRecettesActualisee)
-            // Mise à jour des combo-box avec les choix restants
-            this.updateCombo()
-        })
-
-        this._comboAppareils = new ComboBox("appareils", this._search.getDistinctAppareils(), "color-combo-appareils")
-        zoneCombo.appendChild(this._comboAppareils.getDOM())
-        this._comboAppareils.setHook((newFilter) => {
-            // Hook : On arrive ici suite à l'ajout d'un appareil
-            activeFilters.add("appareils", newFilter)
-            // Mise à jour de la liste des recettes à afficher
-            this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres('', activeFilters.get())
-            this._cardsRecettes.display(this._listeRecettesActualisee)
-            // Mise à jour des combo-box avec les choix restants
-            this.updateCombo()
-        })
+        return combo
     }
 
+    /**
+     *
+     * @param {{}[]} fichierRecettes
+     */
+    async run(fichierRecettes) {
+        // Chargement des données avec un fetch synchrone
+        const response = await fetch(fichierRecettes)
+        this._data = await response.json()
+        this._searchString = ''
+
+        // Création des fiches recettes
+        this._cardsRecettes = new CardsRecettes(this._data)
+
+        // Classe contenant les utilitaires de recherche
+        this._search= new Recherche(this._data)
+
+        // Création de l'input pour la recherche textuelle
+        const customInput = document.querySelector(".custom-input")
+        this._input = new CustomInput(customInput)
+        this._input.setHook(event => {
+            // Hook appelé lorsque le contenu de l'input change
+            this._searchString = event.target.value
+            this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres(event.target.value, this._activeFilters.get())
+            this._cardsRecettes.display(this._listeRecettesActualisee)
+            this.updateCombo()
+        })
+
+        // Filtres
+        const root = document.getElementById("filter-active")
+        this._activeFilters = new ActiveFilters(root)
+        this._activeFilters.setHook((element) => {
+            // Hook appelé lorsqu'on supprime un filtre
+            this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres(this._searchString, this._activeFilters.get())
+            this._cardsRecettes.display(this._listeRecettesActualisee)
+            this.updateCombo()
+        })
+
+        // Appelée une 1ere fois à l'init
+        this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres(this._searchString, this._activeFilters.get())
+
+        // Identification de la zone ComboBox
+        const zoneCombo = document.getElementById('filter-select')
+
+        // Création des 3 combos
+        this._comboIngredients = this.createCombo("ingredients", this._search.getDistinctIngredients(), "color-combo-ingredients", zoneCombo)
+        this._comboUstensiles  = this.createCombo("ustensiles",  this._search.getDistinctUstensiles(),  "color-combo-ustensiles",  zoneCombo)
+        this._comboAppareils   = this.createCombo("appareils",   this._search.getDistinctAppareils(),   "color-combo-appareils",   zoneCombo)
+
+        // ----------------- DEBUG ---------------------------------
+        if (1) {
+            var cntIngredient = []
+            const ingr = this._search.getDistinctIngredients()
+            ingr.forEach(i => {
+                cntIngredient[i] = 0
+            })
+
+            this._data.forEach(recette => {
+                recette.ingredients.forEach(ir => {
+                    ingr.forEach((is) => {
+                        if (is.toLocaleLowerCase().indexOf(ir.ingredient.toLocaleLowerCase()) !== -1) {
+                            cntIngredient[is]++
+                        }
+                    })
+                })
+            })
+
+            const debug = document.querySelector('#debug')
+
+            var res = []
+            Object.entries(cntIngredient).forEach(entry => {
+                const [k, v] = entry
+                res.push({key:k, value:v})
+            })
+
+            var ul = document.createElement('ul')
+            ul.innerText = 'Ingrédients'
+            debug.appendChild(ul)
+
+            res.forEach(a => {
+                var li = document.createElement('li')
+                li.innerText = a.key + ": '" + a.value + "'"
+                ul.appendChild(li)
+            })
+
+            // Ustensiles
+
+            const cntUstensiles = []
+            const ust = this._search.getDistinctUstensiles()
+            ust.forEach(i => {
+                cntUstensiles[i] = 0
+            })
+
+            this._data.forEach(recette => {
+                recette.ustensils.forEach(ir => {
+                    ust.forEach((is) => {
+                        if (is.toLocaleLowerCase() === ir.toLocaleLowerCase()) {
+                        // if (is.toLocaleLowerCase().indexOf(ir.toLocaleLowerCase()) !== -1) {
+                            cntUstensiles[is]++
+                        }
+                    })
+                })
+            })
+
+            res = []
+            Object.entries(cntUstensiles).forEach(entry => {
+                const [k, v] = entry
+                res.push({key:k, value:v})
+            })
+
+            var ul = document.createElement('ul')
+            ul.innerText = 'Ustensiles'
+            debug.appendChild(ul)
+
+            res.forEach(a => {
+                var li = document.createElement('li')
+                li.innerText = a.key + ": '" + a.value + "'"
+                ul.appendChild(li)
+            })
+        }
+    }
 }
