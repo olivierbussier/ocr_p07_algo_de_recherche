@@ -22,33 +22,6 @@ export class Recherche {
         return texte.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1
     }
 
-    /**
-     * Recherche type legacy loop
-     *
-     */
-    legacySearch(recettes, stringSearch, resultRecettes) {
-        for (var recette of recettes) {
-        // recettes.forEach(recette => {
-            var boolIngredient = false
-            // Recherche sur les ingrédients
-            for (var ingredient of recette.ingredients) {
-            // recette.ingredients.forEach(ingredient => {
-                if (this.match(stringSearch, ingredient.ingredient) == true) {
-                    boolIngredient = true
-                }
-            }
-            // Recherches sur le reste et tests
-            if (boolIngredient ||
-                this.match(stringSearch, recette.description) ||
-                this.match(stringSearch, recette.name)) {
-                resultRecettes[recette.id].toBeDisplayed = true
-            } else {
-                resultRecettes[recette.id].toBeDisplayed = false
-            }
-        }
-        return resultRecettes
-    }
-
     arrayMethodSearch(recettes, stringSearch, resultRecettes) {
         recettes.map((recette) => {
             if (this.match(stringSearch, recette.description) ||
@@ -87,12 +60,6 @@ export class Recherche {
         }
 
         if (stringSearch.length >= 3) {
-
-            console.time("Fonction #1 - legacy loops pour " + iterations + " itérations");
-            for (var it=0;it<iterations;it++) {
-                resultRecettes = this.legacySearch(recettes, stringSearch, resultRecettes)
-            }
-            console.timeEnd("Fonction #1 - legacy loops pour " + iterations + " itérations")
 
             console.time("Fonction #2 - Array method pour " + iterations + " itérations");
             for (var it=0;it<iterations;it++) {
