@@ -60,12 +60,7 @@ export class Recherche {
         }
 
         if (stringSearch.length >= 3) {
-
-            console.time("Fonction #2 - Array method pour " + iterations + " itérations");
-            for (var it=0;it<iterations;it++) {
-                resultRecettes = this.arrayMethodSearch(recettes, stringSearch, resultRecettes)
-            }
-            console.timeEnd("Fonction #2 - Array method pour " + iterations + " itérations")
+            resultRecettes = this.arrayMethodSearch(recettes, stringSearch, resultRecettes)
         }
         return resultRecettes
     }
