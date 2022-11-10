@@ -72,12 +72,7 @@ export class Recherche {
         }
 
         if (stringSearch.length >= 3) {
-
-            console.time("Fonction #1 - legacy loops pour " + iterations + " itérations");
-            for (var it=0;it<iterations;it++) {
-                resultRecettes = this.legacySearch(recettes, stringSearch, resultRecettes)
-            }
-            console.timeEnd("Fonction #1 - legacy loops pour " + iterations + " itérations")
+            resultRecettes = this.legacySearch(recettes, stringSearch, resultRecettes)
         }
         return resultRecettes
     }
