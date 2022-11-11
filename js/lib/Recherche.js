@@ -11,18 +11,6 @@ export class Recherche {
     }
 
     /**
-     * Fonction utilisée pour formater et comparer deux chaines de caractères
-     * Ici on effectue la transformation/normalisation en caracteres minuscules
-     *
-     * @param {string} stringSearch la chaine à chercher
-     * @param {string} texte le texte dans lequel chercher
-     * @returns {number} true si stringSearch est contenu dans texte
-     */
-    match(stringSearch, texte) {
-        return texte.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1
-    }
-
-    /**
      * Recherche type legacy loop
      *
      */
@@ -33,20 +21,35 @@ export class Recherche {
             // Recherche sur les ingrédients
             for (var ingredient of recette.ingredients) {
             // recette.ingredients.forEach(ingredient => {
-                if (this.match(stringSearch, ingredient.ingredient) == true) {
+                if (ingredient.ingredient.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1) {
                     boolIngredient = true
                 }
             }
             // Recherches sur le reste et tests
             if (boolIngredient ||
-                this.match(stringSearch, recette.description) ||
-                this.match(stringSearch, recette.name)) {
+                recette.description.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
+                recette.name.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1) {
                 resultRecettes[recette.id].toBeDisplayed = true
             } else {
                 resultRecettes[recette.id].toBeDisplayed = false
             }
         }
         return resultRecettes
+    }
+
+    arrayMethodSearch(recettes, stringSearch, resultRecettes) {
+        recettes.map((recette) => {
+            if (recette.description.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
+                recette.name.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
+                recette.ingredients.reduce((accu, ingredient) => {
+                    return accu + (ingredient.ingredient.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1) ? 1 : 0;
+                    }, 0) > 0) {
+                resultRecettes[recette.id].toBeDisplayed = true;
+            } else {
+                resultRecettes[recette.id].toBeDisplayed = false;
+            }
+        });
+        return resultRecettes;
     }
 
     /**
