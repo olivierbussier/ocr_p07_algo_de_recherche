@@ -10,31 +10,19 @@ export class Recherche {
         this._data = data
     }
 
-    /**
-     * Fonction utilisée pour formater et comparer deux chaines de caractères
-     * Ici on effectue la transformation/normalisation en caracteres minuscules
-     *
-     * @param {string} stringSearch la chaine à chercher
-     * @param {string} texte le texte dans lequel chercher
-     * @returns {number} true si stringSearch est contenu dans texte
-     */
-    match(stringSearch, texte) {
-        return texte.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1
-    }
-
     arrayMethodSearch(recettes, stringSearch, resultRecettes) {
         recettes.map((recette) => {
-            if (this.match(stringSearch, recette.description) ||
-                this.match(stringSearch, recette.name) ||
+            if (recette.description.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
+                recette.name.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
                 recette.ingredients.reduce((accu, ingredient) => {
-                    return accu + (this.match(stringSearch, ingredient.ingredient) == true) ? 1 : 0
+                    return accu + (ingredient.ingredient.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1) ? 1 : 0;
                     }, 0) > 0) {
-                resultRecettes[recette.id].toBeDisplayed = true
+                resultRecettes[recette.id].toBeDisplayed = true;
             } else {
-                resultRecettes[recette.id].toBeDisplayed = false
+                resultRecettes[recette.id].toBeDisplayed = false;
             }
-        })
-        return resultRecettes
+        });
+        return resultRecettes;
     }
 
     /**
