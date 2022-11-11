@@ -34,12 +34,23 @@ export class CardsRecettes {
      * @param {{id: number, toBeDisplayed: boolean}[]} recettesArray
      */
     display(recettesArray) {
+        var nbRecettes = 0
+
         recettesArray.forEach(recette => {
             if (recette.toBeDisplayed) {
-                this._recettes[recette.id].classList.remove('hide-recette')
+                nbRecettes++
+                this._recettes[recette.id].classList.remove('hide-block')
             } else {
-                this._recettes[recette.id].classList.add('hide-recette')
+                this._recettes[recette.id].classList.add('hide-block')
             }
         })
+        const msg = document.querySelector("#msg-info")
+        if (nbRecettes > 0) {
+            msg.innerText = ""
+            msg.classList.add("hide-block")
+        } else {
+            msg.innerText = "Aucune image ne correspond à vos critères"
+            msg.classList.remove("hide-block")
+        }
     }
 }

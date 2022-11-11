@@ -15,20 +15,21 @@ export class Recherche {
      *
      */
     legacySearch(recettes, stringSearch, resultRecettes) {
+        const str = stringSearch.toLocaleLowerCase()
         for (var recette of recettes) {
         // recettes.forEach(recette => {
             var boolIngredient = false
             // Recherche sur les ingrédients
             for (var ingredient of recette.ingredients) {
             // recette.ingredients.forEach(ingredient => {
-                if (ingredient.ingredient.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1) {
+                if (ingredient.ingredient.toLocaleLowerCase().indexOf(str) !== -1) {
                     boolIngredient = true
                 }
             }
             // Recherches sur le reste et tests
             if (boolIngredient ||
-                recette.description.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
-                recette.name.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1) {
+                recette.description.toLocaleLowerCase().indexOf(str) !== -1 ||
+                recette.name.toLocaleLowerCase().indexOf(str) !== -1) {
                 resultRecettes[recette.id].toBeDisplayed = true
             } else {
                 resultRecettes[recette.id].toBeDisplayed = false
@@ -37,12 +38,17 @@ export class Recherche {
         return resultRecettes
     }
 
-    arrayMethodSearch(recettes, stringSearch, resultRecettes) {
+    /**
+     * Recherche type array method
+     *
+     */
+     arrayMethodSearch(recettes, stringSearch, resultRecettes) {
+        const str = stringSearch.toLocaleLowerCase()
         recettes.map((recette) => {
-            if (recette.description.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
-                recette.name.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
+            if (recette.description.toLocaleLowerCase().indexOf(str) !== -1 ||
+                recette.name.toLocaleLowerCase().indexOf(str) !== -1 ||
                 recette.ingredients.reduce((accu, ingredient) => {
-                    return accu + (ingredient.ingredient.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1) ? 1 : 0;
+                    return accu + (ingredient.ingredient.toLocaleLowerCase().indexOf(str) !== -1) ? 1 : 0;
                     }, 0) > 0) {
                 resultRecettes[recette.id].toBeDisplayed = true;
             } else {
@@ -65,7 +71,7 @@ export class Recherche {
     textualSearch(recettes, stringSearch) {
         // Fonction de recherche textuelle
         var resultRecettes = []
-        const iterations = 100
+        const iterations = 1000
 
         for (var i = 1; i <= this._data.length; i++) {
             var o = {}
