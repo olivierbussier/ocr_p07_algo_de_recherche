@@ -37,21 +37,6 @@ export class Recherche {
         return resultRecettes
     }
 
-    arrayMethodSearch(recettes, stringSearch, resultRecettes) {
-        recettes.map((recette) => {
-            if (recette.description.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
-                recette.name.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
-                recette.ingredients.reduce((accu, ingredient) => {
-                    return accu + (ingredient.ingredient.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1) ? 1 : 0;
-                    }, 0) > 0) {
-                resultRecettes[recette.id].toBeDisplayed = true;
-            } else {
-                resultRecettes[recette.id].toBeDisplayed = false;
-            }
-        });
-        return resultRecettes;
-    }
-
     /**
      * Effectue une recherche textuelle sur les recettes, sur les champs :
      * - titre
