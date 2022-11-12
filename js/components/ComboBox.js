@@ -5,28 +5,28 @@ export class ComboBox {
      */
     constructor(name, optionList, classOverride = null) {
 
-        // Creation de la template
-        // <div class="combo-box" data-component="combo-box"></div>
+        /**
+         * Creation de la template
+         *  <div class="combo-box" data-component="combo-box">
+         *      <input name="${name}" placeholder="${name}">
+         *      <datalist id="id_${name}">
+         *          <option></option>
+         *          ...
+         *      </datalist>
+         *  </div>
+         */
 
         this._hookFunction = null
-        this._div = document.createElement('div')
-        this._div.classList.add("combo-container")
 
         this._combo = document.createElement('div')
         this._combo.classList.add("combo-box", classOverride)
         this._combo.dataset.component = "combo-box"
-        this._div.appendChild(this._combo)
 
         this._input = document.createElement('input')
-        // this._input.setAttribute("type", "text")
-        // this._input.setAttribute("list", "")
         this._input.setAttribute("name", name)
         this._input.setAttribute("placeholder", name)
         this._combo.appendChild(this._input)
 
-        // const essai = document.createElement('div')
-        // essai.classList.add("rel")
-        // this._div.appendChild(essai)
         this._divOptions = document.createElement("datalist")
         this._input.setAttribute("id", "id_" + name)
         this._combo.appendChild(this._divOptions)
@@ -46,8 +46,8 @@ export class ComboBox {
         this._input.addEventListener('blur', e => this.onFocus(e))
 
         for (var option of this._options) {
-            option.addEventListener('click', e => this.onclick(e))
-        };
+            option.addEventListener('mousedown', e => this.onclick(e))
+        }
 
         this._input.addEventListener('input', e => this.onKeyboardInput(e))
         this._input.addEventListener('keydown', e => this.onKeydown(e))
@@ -110,7 +110,7 @@ export class ComboBox {
         if (event.type === 'focusin') {
             this._divOptions.classList.add('active')
         } else if (event.type === 'blur') {
-            setTimeout(() => this._divOptions.classList.remove('active'), 200)
+            this._divOptions.classList.remove('active')
         }
     }
 
@@ -123,7 +123,7 @@ export class ComboBox {
     }
 
     getDOM() {
-        return this._div
+        return this._combo
     }
 
     /**
