@@ -17,15 +17,28 @@ export class ComboBox {
          */
 
         this._hookFunction = null
+        this._currentFocus = -1
+
+        this._div = document.createElement('div')
+        this._div.classList.add("combo-container")
 
         this._combo = document.createElement('div')
         this._combo.classList.add("combo-box", classOverride)
         this._combo.dataset.component = "combo-box"
+        this._div.appendChild(this._combo)
 
         this._input = document.createElement('input')
         this._input.setAttribute("name", name)
         this._input.setAttribute("placeholder", name)
         this._combo.appendChild(this._input)
+
+        // Création de la zone de click au dessus du caret
+        this._caretClick = document.createElement('a')
+        this._caretClick.setAttribute('href', "#")
+        this._caretClick.classList.add('click-combo')
+        this._combo.appendChild(this._caretClick)
+
+        this._caretClick.addEventListener("mousedown", e => this.onClickCaret(e))
 
         this._divOptions = document.createElement("datalist")
         this._input.setAttribute("id", "id_" + name)
@@ -38,27 +51,73 @@ export class ComboBox {
             var optItem = document.createElement('option')
             optItem.dataset.value = option
             optItem.innerHTML = option
-            // optItem.classList.add("active")
             this._divOptions.appendChild(optItem)
             this._options.push(optItem)
+            optItem.addEventListener('mousedown', e => this.onclick(e))
         })
+
         this._input.addEventListener('focusin', e => this.onFocus(e))
         this._input.addEventListener('blur', e => this.onFocus(e))
-
-        for (var option of this._options) {
-            option.addEventListener('mousedown', e => this.onclick(e))
-        }
 
         this._input.addEventListener('input', e => this.onKeyboardInput(e))
         this._input.addEventListener('keydown', e => this.onKeydown(e))
     }
 
-    setHook(hookFunction) {
-        this._hookFunction = hookFunction
+    log(e, msg='') {
+        console.log('event:' + msg, e.type, e.target)
     }
-    _currentFocus = -1
+
+    onClickCaret(e) {
+        e.preventDefault()
+        e.stopPropagation()
+        this.log(e, 'caret')
+        this._divOptions.classList.forEach(ev => console.log(ev, 'bizarre'))
+        if (this._divOptions.classList.contains('active')) {
+            this._caretClick.classList.remove("active")
+            this._divOptions.classList.remove("active")
+            this._input.blur()
+        } else {
+            this._caretClick.classList.add("active")
+            this._divOptions.classList.add("active")
+            this._input.focus()
+        }
+    }
+
+    onFocus(event) {
+        this.log(event)
+        if (event.type === 'focusin') {
+            this._divOptions.classList.add('active')
+            this._caretClick.classList.add("active")
+        } else if (event.type === 'blur') {
+            this._divOptions.classList.remove('active')
+            this._caretClick.classList.remove("active")
+        }
+    }
+
+    onclick(event) {
+        this.log(event)
+        this._input.value = ''
+        this._divOptions.classList.remove('active')
+        this._caretClick.classList.remove('active')
+        if (this._hookFunction) {
+            this._hookFunction(event.target.value)
+        }
+    }
+
+    onKeyboardInput(event) {
+        this.log(event)
+        var text = event.target.value.toUpperCase()
+        for (var option of this._options) {
+            if (option.value.toUpperCase().indexOf(text) > -1) {
+                option.classList.remove("unmatch")
+            } else {
+                option.classList.add("unmatch")
+            }
+        }
+    }
 
     onKeydown(event) {
+        this.log(event)
         if (event.keyCode == 40) {
             this._currentFocus++
             this.addMatch(this._options);
@@ -73,6 +132,10 @@ export class ComboBox {
                 }
             }
         }
+    }
+
+    setHook(hookFunction) {
+        this._hookFunction = hookFunction
     }
 
     addMatch(options) {
@@ -95,35 +158,8 @@ export class ComboBox {
         }
     }
 
-    onKeyboardInput(event) {
-        var text = event.target.value.toUpperCase()
-        for (var option of this._options) {
-            if (option.value.toUpperCase().indexOf(text) > -1) {
-                option.classList.remove("unmatch")
-            } else {
-                option.classList.add("unmatch")
-            }
-        }
-    }
-
-    onFocus(event) {
-        if (event.type === 'focusin') {
-            this._divOptions.classList.add('active')
-        } else if (event.type === 'blur') {
-            this._divOptions.classList.remove('active')
-        }
-    }
-
-    onclick(event) {
-        this._input.value = ''
-        this._divOptions.classList.add('active')
-        if (this._hookFunction) {
-            this._hookFunction(event.target.value)
-        }
-    }
-
     getDOM() {
-        return this._combo
+        return this._div
     }
 
     /**

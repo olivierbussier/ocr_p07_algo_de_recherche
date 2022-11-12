@@ -5,66 +5,74 @@
     position: absolute;
 }
 
-.combo-box {
-    display: flex;
-    flex-direction: column;
-    background-color: $bg-combo-default;
-    color:$fg-combo-default;
-    border-radius: 5px;
-    input {
-        background-color: inherit;
-        background-image: url(/assets/icones/caret-down.svg);
-        background-repeat: no-repeat;
-        background-position: top calc(($height-combo - 16px) / 2 + 4px) right 10px;
-        &:focus-within {
-            background-image: url(/assets/icones/caret-up.svg);
-        }
-        color: inherit;
-        border-style: hidden;
+.combo-container {
+    .combo-box {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background-color: $bg-combo-default;
+        color:$fg-combo-default;
         border-radius: 5px;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 21.6px;
-        padding: 10px 40px 10px 10px;
-        height: $height-combo;
-        z-index: 3;
-        &:focus {
-            outline: none;
+        a {
+            position: absolute;
+            width: 1.5em;
+            height:auto;
+            right:0.5em;
+            top: calc(($height-combo - 1.5em) / 2 + 4px);
+            z-index: 10;
+            content: url(/assets/icones/caret-down.svg);
+            &.active {
+                content: url(/assets/icones/caret-up.svg);
+            }
         }
-        &::placeholder {
-            color:white;
+        input {
+            color: inherit;
+            background-color: inherit;
+            border-style: hidden;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 21.6px;
+            padding: 10px 40px 10px 10px;
+            height: $height-combo;
+            z-index: 3;
+            &:focus {
+                outline: none;
+            }
+            &::placeholder {
+                color:white;
+            }
         }
-    }
-    datalist {
-        background-color: inherit;
-        z-index: 2;
-        display: none;
-        grid-template-columns: 1fr 1fr 1fr;
-        border-radius: 5px;
-        border-top: none;
-        &.active {
-            display: grid;
-        }
-    }
-    option {
-        display: block;
-        padding: 0 5px;
-        margin: 0;
-        color: inherit;
-        font-size: 1rem;
-        cursor: pointer;
-        &:hover {
-            filter: opacity(15%)
-        }
-        &.inactive{
-            display: none!important;
-        }
-        &.unmatch {
+        datalist {
+            background-color: inherit;
+            z-index: 2;
             display: none;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-radius: 5px;
+            border-top: none;
+            &.active {
+                display: grid;
+            }
+        }
+        option {
+            display: block;
+            padding: 0 5px;
+            margin: 0;
+            color: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            &:hover {
+                filter: opacity(15%)
+            }
+            &.inactive{
+                display: none!important;
+            }
+            &.unmatch {
+                display: none;
+            }
         }
     }
 }
-
 
 .color-combo-ingredients {
     background-color: $bg-combo-ingredients!important;
