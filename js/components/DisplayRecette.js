@@ -32,9 +32,13 @@ export class DisplayRecette {
         } else {
             debugStr = ''
         }
-        // const stfl = 'abcdefghijklmnopqrstuvwxyz0123456789'
-        // const img = "assets/images/new/" + String.fromCharCode(stfl.charCodeAt(Math.floor(Math.random()*stfl.length))) + ".jpg"
-        const img = "https://picsum.photos/380/178?a=" + Math.random(100000)
+        var img
+        if (1) {
+            const stfl = 'abcdefghijklmnopqrstuvwxyz0123456789'
+            img = "assets/images/new/" + String.fromCharCode(stfl.charCodeAt(Math.floor(Math.random()*stfl.length))) + ".jpg"
+        } else {
+            img = "https://picsum.photos/380/178?a=" + Math.random(100000)
+        }
 
         section.innerHTML =
            `<article class="card">
