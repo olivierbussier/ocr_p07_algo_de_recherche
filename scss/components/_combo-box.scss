@@ -7,6 +7,7 @@
 
 .combo-container {
     .combo-box {
+        $width-caret: 1.2em;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -15,10 +16,10 @@
         border-radius: 5px;
         a {
             position: absolute;
-            width: 1.5em;
+            width: $width-caret;
             height:auto;
             right:0.5em;
-            top: calc(($height-combo - 1.5em) / 2 + 4px);
+            top: calc(($height-combo - $width-caret) / 2 + 4px);
             z-index: 10;
             content: url(/assets/icones/caret-down.svg);
             &.active {

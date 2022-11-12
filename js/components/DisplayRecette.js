@@ -19,21 +19,9 @@ export class DisplayRecette {
             li.innerHTML = '<span class="strong">' + ingredient.ingredient + '</span>' + textQuantity + textUnit
             ul.appendChild(li)
         })
-        if (0) {
-            var debugStr ='', virg=''
-            debugStr += 'id recette:' + recette.id + '<br>'
-            debugStr +='ustensiles: '
-            recette.ustensils.forEach((u) => {
-                debugStr += (virg+u)
-                virg=', '
-            })
-            debugStr += '<br>appareils: ' + recette.appliance
-            debugStr = `<div class="card-body debug">${debugStr}</div>`
-        } else {
-            debugStr = ''
-        }
         var img
-        if (1) {
+
+        if (window.location.hostname.indexOf("127.0.0") !== -1) {
             const stfl = 'abcdefghijklmnopqrstuvwxyz0123456789'
             img = "assets/images/new/" + String.fromCharCode(stfl.charCodeAt(Math.floor(Math.random()*stfl.length))) + ".jpg"
         } else {
@@ -57,7 +45,7 @@ export class DisplayRecette {
 
                     <div class="card-body">
                         <p class="card-text p12px multiline-ellipsis">${Utils.truncateText(recette.description,200)}</p>
-                    </div>${debugStr}
+                    </div>
                 </div>
             </article>`
         section.querySelector('.card-body.ingredients').appendChild(ul)
