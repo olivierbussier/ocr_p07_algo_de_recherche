@@ -23,4 +23,9 @@ export class CustomInput {
             }
         })
     }
+
+    focus() {
+        // activate focus on input
+        this._element.querySelector('input').focus()
+    }
 }

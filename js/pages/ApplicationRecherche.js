@@ -93,5 +93,8 @@ export class ApplicationRecherche {
         this._comboIngredients = this.createCombo("ingredients", this._search.getDistinctIngredients(), "color-combo-ingredients", zoneCombo)
         this._comboUstensiles  = this.createCombo("ustensiles",  this._search.getDistinctUstensiles(),  "color-combo-ustensiles",  zoneCombo)
         this._comboAppareils   = this.createCombo("appareils",   this._search.getDistinctAppareils(),   "color-combo-appareils",   zoneCombo)
+
+        // Activation du focus sur l'input
+        this._input.focus()
     }
 }

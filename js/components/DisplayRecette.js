@@ -19,22 +19,14 @@ export class DisplayRecette {
             li.innerHTML = '<span class="strong">' + ingredient.ingredient + '</span>' + textQuantity + textUnit
             ul.appendChild(li)
         })
-        if (0) {
-            var debugStr ='', virg=''
-            debugStr += 'id recette:' + recette.id + '<br>'
-            debugStr +='ustensiles: '
-            recette.ustensils.forEach((u) => {
-                debugStr += (virg+u)
-                virg=', '
-            })
-            debugStr += '<br>appareils: ' + recette.appliance
-            debugStr = `<div class="card-body debug">${debugStr}</div>`
+        var img
+
+        if (window.location.hostname.indexOf("127.0.0") !== -1) {
+            const stfl = 'abcdefghijklmnopqrstuvwxyz0123456789'
+            img = "assets/images/new/" + String.fromCharCode(stfl.charCodeAt(Math.floor(Math.random()*stfl.length))) + ".jpg"
         } else {
-            debugStr = ''
+            img = "https://picsum.photos/380/178?a=" + Math.random(100000)
         }
-        const stfl = 'abcdefghijklmnopqrstuvwxyz0123456789'
-        const img = "assets/images/new/" + String.fromCharCode(stfl.charCodeAt(Math.floor(Math.random()*stfl.length))) + ".jpg"
-        // const img = "https://picsum.photos/380/178?a=" + Math.random(100000)
 
         section.innerHTML =
            `<article class="card">
@@ -53,7 +45,7 @@ export class DisplayRecette {
 
                     <div class="card-body">
                         <p class="card-text p12px multiline-ellipsis">${Utils.truncateText(recette.description,200)}</p>
-                    </div>${debugStr}
+                    </div>
                 </div>
             </article>`
         section.querySelector('.card-body.ingredients').appendChild(ul)

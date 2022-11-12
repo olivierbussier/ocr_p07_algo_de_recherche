@@ -7,20 +7,28 @@
 
 .combo-container {
     .combo-box {
+        $width-caret: 1.2em;
+        position: relative;
         display: flex;
         flex-direction: column;
         background-color: $bg-combo-default;
         color:$fg-combo-default;
         border-radius: 5px;
-        input {
-            background-color: inherit;
-            background-image: url(/assets/icones/caret-down.svg);
-            background-repeat: no-repeat;
-            background-position: top calc(($height-combo - 16px) / 2 + 4px) right 10px;
-            &:focus-within {
-                background-image: url(/assets/icones/caret-up.svg);
+        a {
+            position: absolute;
+            width: $width-caret;
+            height:auto;
+            right:0.5em;
+            top: calc(($height-combo - $width-caret) / 2 + 4px);
+            z-index: 10;
+            content: url(/assets/icones/caret-down.svg);
+            &.active {
+                content: url(/assets/icones/caret-up.svg);
             }
+        }
+        input {
             color: inherit;
+            background-color: inherit;
             border-style: hidden;
             border-radius: 5px;
             font-size: 18px;
