@@ -10,12 +10,18 @@ export class Recherche {
         this._data = data
     }
 
-    arrayMethodSearch(recettes, stringSearch, resultRecettes) {
+    /**
+     * Recherche type array method
+     *
+     */
+     arrayMethodSearch(recettes, stringSearch, resultRecettes) {
+        const str = stringSearch.toLocaleLowerCase()
+
         recettes.map((recette) => {
-            if (recette.description.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
-                recette.name.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1 ||
+            if (recette.description.toLocaleLowerCase().indexOf(str) !== -1 ||
+                recette.name.toLocaleLowerCase().indexOf(str) !== -1 ||
                 recette.ingredients.reduce((accu, ingredient) => {
-                    return accu + (ingredient.ingredient.toLocaleLowerCase().indexOf(stringSearch.toLocaleLowerCase()) !== -1) ? 1 : 0;
+                    return accu + (ingredient.ingredient.toLocaleLowerCase().indexOf(str) !== -1) ? 1 : 0;
                     }, 0) > 0) {
                 resultRecettes[recette.id].toBeDisplayed = true;
             } else {
@@ -38,7 +44,7 @@ export class Recherche {
     textualSearch(recettes, stringSearch) {
         // Fonction de recherche textuelle
         var resultRecettes = []
-        const iterations = 100
+        const iterations = 10
 
         for (var i = 1; i <= this._data.length; i++) {
             var o = {}
