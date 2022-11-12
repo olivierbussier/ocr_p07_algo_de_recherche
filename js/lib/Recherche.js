@@ -71,7 +71,7 @@ export class Recherche {
     textualSearch(recettes, stringSearch) {
         // Fonction de recherche textuelle
         var resultRecettes = []
-        const iterations = 1000
+        const iterations = 10
 
         for (var i = 1; i <= this._data.length; i++) {
             var o = {}
