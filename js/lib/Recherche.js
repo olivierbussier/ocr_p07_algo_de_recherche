@@ -11,6 +11,7 @@ export class Recherche {
     }
 
     /**
+
      * Recherche type legacy loop
      *
      */
