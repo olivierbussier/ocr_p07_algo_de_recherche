@@ -125,7 +125,7 @@ export class ComboBox {
             this._currentFocus--
             this.addMatch(this._options);
         } else if(event.keyCode == 13) {
-            e.preventDefault();
+            event.preventDefault();
             if (this._currentFocus > -1) {
                 if (this._options) {
                     this._options[this._currentFocus].click();
@@ -168,7 +168,7 @@ export class ComboBox {
      *  (toutes doivent etre dans les options passer au constructeur)
      */
     updateOptionList(optionList) {
-        this._options.forEach(((option, index) => {
+        this._options.forEach(((option) => {
             // if (option.value === "Pois Cassé")
             if (optionList.indexOf(option.value) !== -1) {
                 option.classList.remove("inactive")

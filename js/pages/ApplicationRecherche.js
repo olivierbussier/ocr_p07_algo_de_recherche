@@ -76,7 +76,7 @@ export class ApplicationRecherche {
         // Filtres
         const root = document.getElementById("filter-active")
         this._activeFilters = new ActiveFilters(root)
-        this._activeFilters.setHook((element) => {
+        this._activeFilters.setHook(() => {
             // Hook appelé lorsqu'on supprime un filtre
             this._listeRecettesActualisee = this._search.getRecettesStatusFromCriteres(this._searchString, this._activeFilters.get())
             this._cardsRecettes.display(this._listeRecettesActualisee)
