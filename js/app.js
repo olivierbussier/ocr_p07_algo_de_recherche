@@ -1,4 +1,3 @@
-import { ComboBox } from './components/ComboBox.js'
 import { ApplicationRecherche } from './pages/ApplicationRecherche.js'
 
-const app = new ApplicationRecherche("data/recipes.json")
+new ApplicationRecherche("data/recipes.json")
