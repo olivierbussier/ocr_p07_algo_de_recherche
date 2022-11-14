@@ -89,7 +89,7 @@ export class Recherche {
             console.timeEnd("Fonction #1 - legacy loops pour " + iterations + " itérations")
 
             console.time("Fonction #2 - Array method pour " + iterations + " itérations");
-            for (var it=0;it<iterations;it++) {
+            for (it=0;it<iterations;it++) {
                 resultRecettes = this.arrayMethodSearch(recettes, stringSearch, resultRecettes)
             }
             console.timeEnd("Fonction #2 - Array method pour " + iterations + " itérations")
