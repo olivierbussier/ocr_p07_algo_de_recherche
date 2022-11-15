@@ -11,32 +11,24 @@ export class Recherche {
     }
 
     /**
-
-     * Recherche type legacy loop
+     * Recherche type array method
      *
      */
-    legacySearch(recettes, stringSearch, resultRecettes) {
+     arrayMethodSearch(recettes, stringSearch, resultRecettes) {
         const str = stringSearch.toLocaleLowerCase()
-        for (var recette of recettes) {
-        // recettes.forEach(recette => {
-            var boolIngredient = false
-            // Recherche sur les ingrédients
-            for (var ingredient of recette.ingredients) {
-            // recette.ingredients.forEach(ingredient => {
-                if (ingredient.ingredient.toLocaleLowerCase().indexOf(str) !== -1) {
-                    boolIngredient = true
-                }
-            }
-            // Recherches sur le reste et tests
-            if (boolIngredient ||
-                recette.description.toLocaleLowerCase().indexOf(str) !== -1 ||
-                recette.name.toLocaleLowerCase().indexOf(str) !== -1) {
-                resultRecettes[recette.id].toBeDisplayed = true
+
+        recettes.map((recette) => {
+            if (recette.description.toLocaleLowerCase().indexOf(str) !== -1 ||
+                recette.name.toLocaleLowerCase().indexOf(str) !== -1 ||
+                recette.ingredients.reduce((accu, ingredient) => {
+                    return accu + (ingredient.ingredient.toLocaleLowerCase().indexOf(str) !== -1) ? 1 : 0;
+                    }, 0) > 0) {
+                resultRecettes[recette.id].toBeDisplayed = true;
             } else {
-                resultRecettes[recette.id].toBeDisplayed = false
+                resultRecettes[recette.id].toBeDisplayed = false;
             }
-        }
-        return resultRecettes
+        });
+        return resultRecettes;
     }
 
     /**
@@ -61,7 +53,7 @@ export class Recherche {
         }
 
         if (stringSearch.length >= 3) {
-            resultRecettes = this.legacySearch(recettes, stringSearch, resultRecettes)
+            resultRecettes = this.arrayMethodSearch(recettes, stringSearch, resultRecettes)
         }
         return resultRecettes
     }
