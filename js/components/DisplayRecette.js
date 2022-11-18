@@ -19,14 +19,7 @@ export class DisplayRecette {
             li.innerHTML = '<span class="strong">' + ingredient.ingredient + '</span>' + textQuantity + textUnit
             ul.appendChild(li)
         })
-        var img
-
-        if (window.location.hostname.indexOf("127.0.0") !== -1) {
-            const stfl = 'abcdefghijklmnopqrstuvwxyz0123456789'
-            img = "assets/images/new/" + String.fromCharCode(stfl.charCodeAt(Math.floor(Math.random()*stfl.length))) + ".jpg"
-        } else {
-            img = "https://picsum.photos/380/178?a=" + Math.random(100000)
-        }
+        var img = "https://picsum.photos/380/178?a=" + Math.random(100000)
 
         section.innerHTML =
            `<article class="card">
